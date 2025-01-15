@@ -9,14 +9,22 @@
     <h1>Reconhecimento de Clientes e Estados</h1>
     <p>Preencha com nome, endereço, email e telefone e/ou WhatsApp</p>
 
-    <form method="POST" action="">
-        {{ form.hidden_tag() }}
-        <p>
-            {{ form.user_input.label }}<br>
-            {{ form.user_input(rows=5, cols=40) }}
-        </p>
-        <p>{{ form.submit() }}</p>
-    </form>
+    <form method="POST" action="{{ url_for('nlp_form') }}">
+    {{ form.hidden_tag() }}
+    <div>
+        {{ form.user_input.label }}
+        {{ form.user_input(class="form-control") }}
+    </div>
+
+
+    <div>
+        {{ form.confirm_save.label }}
+        {{ form.confirm_save() }}
+    </div>
+    <div>
+        {{ form.submit(class="btn btn-primary") }}
+    </div>
+</form>
 
     <!-- Flash messages -->
     {% with messages = get_flashed_messages(with_categories=true) %}
