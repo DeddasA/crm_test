@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Form</title>
+</head>
+<body>
+    <h1>Cadastro de Informações</h1>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.name.label }}<br>
+            {{ form.name(size=40) }}
+        </p>
+        <p>
+            {{ form.email.label }}<br>
+            {{ form.email(size=40) }}
+        </p>
+        <p>
+            {{ form.phone.label }}<br>
+            {{ form.phone(size=40) }}
+        </p>
+        <p>
+            {{ form.state.label }}<br>
+            {{ form.state(size=40) }}
+        </p>
+        <p>
+            {{ form.city.label }}<br>
+            {{ form.city(size=40) }}
+        </p>
+        <p>
+            {{ form.address.label }}<br>
+            {{ form.address(size=40) }}
+        </p>
+        <p>
+            {{ form.bairro.label }}<br>
+            {{ form.bairro(size=40) }}
+        </p>
+        <p>
+            {{ form.numero.label }}<br>
+            {{ form.numero(size=20) }}
+        </p>
+        <p>
+            {{ form.submit }}
+        </p>
+    </form>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul>
+                {% for category, message in messages %}
+                    <li><strong>{{ category }}</strong>: {{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+<a href="/dashboard/">teste</a>
+</body>
+</html>
