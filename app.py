@@ -75,6 +75,8 @@ def simple_form():
             flash("Por favor, preencha todos os campos corretamente.", "warning")
     return render_template("simple_form.html", form=form)
 
+#test
+
 
 
 
