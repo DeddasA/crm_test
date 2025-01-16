@@ -4,21 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2750c60e-cc00-4c63-9428-6f45f06d9fd2" name="Changes" comment="V_04">
-      <change afterPath="$PROJECT_DIR$/csvs/2025-01-16/output_file.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dash_main.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data_base.py" afterDir="false" />
+    <list default="true" id="2750c60e-cc00-4c63-9428-6f45f06d9fd2" name="Changes" comment="V_09_alpha">
       <change afterPath="$PROJECT_DIR$/data_base/33_RJ.csv" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/data_base/municipios.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/output_file.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pandas_editing.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/simple_form.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/route_1.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test_routes.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CONFIG" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/instance/clients.db" beforeDir="false" afterPath="$PROJECT_DIR$/instance/data.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/home.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dash_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/dash_main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/output_file.csv" beforeDir="false" afterPath="$PROJECT_DIR$/csvs/2025-01-16/output_file.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/simple_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/simple_form.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,19 +25,31 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="HTML File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="0.3" />
+        <entry key="$PROJECT_DIR$" value="0.8-Alpha" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "DeddasA"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/DeddasA/crm_test.git",
+    "accountId": "41782a1d-ce42-46af-8aa6-d9b8ac8f8adf"
+  }
+}]]></component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
@@ -67,9 +76,11 @@
     "Python.pandas_editing.executor": "Run",
     "Python.spacy_test.executor": "Run",
     "Python.test.executor": "Run",
+    "Python.test_flask.executor": "Run",
+    "Python.test_routes.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "0.4",
+    "git-widget-placeholder": "0.9-Alpha",
     "settings.editor.selected.configurable": "inlay.hints"
   }
 }]]></component>
@@ -118,14 +129,60 @@
       <option name="project" value="LOCAL" />
       <updated>1736966219386</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="V_05">
+      <option name="closed" value="true" />
+      <created>1737053656582</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1737053656587</updated>
+    </task>
+    <task id="LOCAL-00005" summary="V_05">
+      <option name="closed" value="true" />
+      <created>1737053762518</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1737053762518</updated>
+    </task>
+    <task id="LOCAL-00006" summary="V_07_aplha">
+      <option name="closed" value="true" />
+      <created>1737053958240</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1737053958240</updated>
+    </task>
+    <task id="LOCAL-00007" summary="V_08_aplha">
+      <option name="closed" value="true" />
+      <created>1737054062834</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1737054062834</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="V_01" />
     <MESSAGE value="V_02" />
     <MESSAGE value="V_04" />
-    <option name="LAST_COMMIT_MESSAGE" value="V_04" />
+    <MESSAGE value="V_05" />
+    <MESSAGE value="V_07_aplha" />
+    <MESSAGE value="V_08_aplha" />
+    <option name="LAST_COMMIT_MESSAGE" value="V_08_aplha" />
   </component>
 </project>
