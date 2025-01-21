@@ -50,6 +50,12 @@ def simple_form():
             numero = form.numero.data
 
             try:
+
+                existing_user = UserInfo.query.filter_by(name=name).first()
+                if existing_user:
+                    flash(f"O Nome '{name}' já existe no banco de dados.", "Aviso")
+                    flash(f"O  Email '{email}' já existe no banco de dados.", "Aviso")
+                    return redirect(url_for("simple_form"))
                 new_user = UserInfo(
                     name=name,
                     email=email,
@@ -63,14 +69,26 @@ def simple_form():
                 db.session.add(new_user)
                 db.session.commit()
 
-                flash("As informações foram salvas com sucesso!", "success")
+                flash("As informações foram salvas com sucesso!", "Successo")
                 return redirect(url_for("simple_form"))
             except Exception as e:
                 db.session.rollback()
-                flash(f"Erro ao salvar os dados: {e}", "danger")
+                flash(f"Erro ao salvar os dados: {e}", "Erro")
         else:
-            flash("Por favor, preencha todos os campos corretamente.", "warning")
+            for field, errors in form.errors.items():
+                for error in errors:
+                    flash(f"Erro no campo '{getattr(form, field).label.text}': {error}", "Aviso")
+
     return render_template("simple_form.html", form=form)
+
+
+
+@app.route("/client_views", methods=["GET", "POST"])
+def client_views():
+    pass
+
+
+
 
 create_dash_app(app)
 

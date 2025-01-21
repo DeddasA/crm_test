@@ -1,31 +1,46 @@
-from flask import Flask, render_template
 import dash
-from dash import dash_table
+from dash import dcc, html, dash_table
+from dash.dependencies import Input, Output
+import sqlite3
 import pandas as pd
-from dash import dcc, html
-from pandas_editing import con_data
+from flask import Flask
 
 # Initialize Flask app
-app= Flask(__name__)
+app = Flask(__name__)
 
-
+# Initialize the Dash app
 def create_dash_app(flask_app):
-    # Initialize the Dash app and bind it to the Flask app
+    # Attach Dash to the Flask app
     dash_app = dash.Dash(
         __name__,
         server=flask_app,
         url_base_pathname='/dashboard/'
     )
 
-    # Call your data processing function
-    con_data()
+    # Function to fetch data from the database
+    def fetch_data():
+        conn = sqlite3.connect('instance/data.db')
+        query = 'SELECT * FROM user_info'
+        df = pd.read_sql(query, conn)
+        conn.close()
+        return df
 
-    # Load the CSV data into a Pandas DataFrame
-    df = pd.read_csv("csvs/2025-01-16/output_file.csv")
+    # Initial DataFrame
+    df = fetch_data()
 
-    # Create Dash layout
+    # Dash layout
     dash_app.layout = html.Div([
-        html.H1("Spreadsheet Data Display"),
+        html.H1("Dados dos clientes"),
+
+        # Refresh button
+        html.Button("Atualizar Banco de dados", id="refresh-button", n_clicks=0),
+
+        html.Div([
+            html.A("Retornar para a página de cadastros", href="/",
+                   style={'font-size': '16px', 'color': 'blue', 'text-decoration': 'underline'})
+        ], style={'margin-bottom': '20px'}),
+
+        # Data table
         dash_table.DataTable(
             id='table',
             columns=[{'name': col, 'id': col} for col in df.columns],
@@ -34,18 +49,25 @@ def create_dash_app(flask_app):
         ),
     ])
 
+    # Callback to refresh the data table
+    @dash_app.callback(
+        Output('table', 'data'),
+        Input('refresh-button', 'n_clicks')
+    )
+    def refresh_table(n_clicks):
+        # Fetch the updated data from the database
+        updated_df = fetch_data()
+        return updated_df.to_dict('records')
+
     return dash_app
 
 
-
-
-
-
-
-
-
+# Attach the Dash app to the Flask app
 dash_app = create_dash_app(app)
 
-if __name__ == '__main__':
+@app.route("/")
+def home():
+    return "Navigate to /dashboard to view the dashboard"
+
+if __name__ == "__main__":
     app.run(debug=True)
-#001
