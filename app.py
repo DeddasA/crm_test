@@ -3,12 +3,9 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired, Email
 from data_base import UserInfo, db
-# import dash
-# from dash import dash_table, dcc, html
-# import pandas as pd
-# from pandas_editing import con_data
+
 from dash_main import create_dash_app
-# Initialize Flask app
+
 app = Flask(__name__)
 
 app.secret_key = "your_secret_key"
@@ -83,9 +80,74 @@ def simple_form():
 
 
 
-@app.route("/client_views", methods=["GET", "POST"])
-def client_views():
-    pass
+@app.route("/search", methods=["GET", "POST"])
+def search_user():
+    if request.method == "POST":
+        email = request.form.get("email")
+        user = UserInfo.query.filter_by(email=email).first()
+        if user:
+            return redirect(url_for("edit_user", user_id=user.id))
+        else:
+            flash("Usuário não encontrado", "warning")
+    return render_template("search.html")
+
+
+
+
+
+
+
+
+
+class EditUserForm(FlaskForm):
+    name = StringField("Nome:", validators=[DataRequired()])
+    email = StringField("Email:", validators=[DataRequired(), Email()])
+    phone = StringField("Telefone:")
+    state = StringField("Estado:")
+    city = StringField("Cidade:")
+    address = StringField("Endereço:")
+    bairro = StringField("Bairro:")
+    numero = StringField("Número:")
+    submit = SubmitField("Salvar Alterações")
+
+@app.route("/edit/<int:user_id>", methods=["GET", "POST"])
+def edit_user(user_id):
+    user = UserInfo.query.get_or_404(user_id)
+    form = EditUserForm(obj=user)  # Pre-fill form with user's current data
+    if form.validate_on_submit():
+        user.name = form.name.data
+        user.email = form.email.data
+        user.phone = form.phone.data
+        user.state = form.state.data
+        user.city = form.city.data
+        user.address = form.address.data
+        user.bairro = form.bairro.data
+        user.numero = form.numero.data
+        try:
+            db.session.commit()
+            flash("User details updated successfully!", "success")
+            return redirect(url_for("search_user"))
+        except Exception as e:
+            db.session.rollback()
+            flash(f"Error updating user: {e}", "danger")
+    return render_template("user_editing.html", form=form, user=user)
+
+
+@app.route("/delete/<int:user_id>", methods=["POST"])
+def delete_user(user_id):
+    print(f"Deleting user with ID: {user_id}")
+    user = UserInfo.query.get_or_404(user_id)
+    try:
+        db.session.delete(user)
+        print(f"User deleted: {user.name}")
+        db.session.commit()
+        flash("Usuário excluído com sucesso!", "success")
+        return redirect(url_for("simple_form"))
+    except Exception as e:
+        db.session.rollback()
+        flash(f"Erro ao excluir o usuário: {e}", "danger")
+        return redirect(url_for("simple_form"))
+
 
 
 
