@@ -25,7 +25,7 @@ def create_dash_app(flask_app):
         conn.close()
         return df
 
-    # Initial DataFrame
+    # Initial DataFjjrame
     df = fetch_data()
 
     # Dash layout

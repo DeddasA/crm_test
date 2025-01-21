@@ -68,7 +68,7 @@ def simple_form():
                 )
                 db.session.add(new_user)
                 db.session.commit()
-
+#aaaaaa
                 flash("As informações foram salvas com sucesso!", "Successo")
                 return redirect(url_for("simple_form"))
             except Exception as e:
