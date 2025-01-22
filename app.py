@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField,TextAreaField,SelectField,DateField
+from wtforms import StringField, SubmitField,TextAreaField,SelectField,DateField,FieldList
 from wtforms.validators import DataRequired, Email,Regexp
 from data_base import UserInfo, db
 from datetime import datetime
@@ -35,11 +35,14 @@ class SimpleForm(FlaskForm):
 
     reg_date = DateField('Data',validators=[DataRequired()])
 
+    diary_dates = FieldList(DateField('Data do Diário', format='%d/%m/%Y'), min_entries=1)
+    diary_texts = FieldList(TextAreaField('Texto do Diário'), min_entries=1)
 
 
 
 
-    email_body = TextAreaField("Corpo do Email")
+
+
 
     submit = SubmitField("Enviar")
 
@@ -59,7 +62,7 @@ def simple_form():
             bairro = form.bairro.data
             numero = form.numero.data
             status = form.status.data
-            email_body = form.email_body.data
+
             reg_date = form.reg_date.data
 
             existing_user = UserInfo.query.filter_by(email=email).first()
@@ -76,7 +79,6 @@ def simple_form():
                 address=address,
                 bairro=bairro,
                 numero=numero,
-                email_body=email_body,
                 status=status,
                 reg_date=reg_date
 
@@ -133,7 +135,7 @@ class EditUserForm(FlaskForm):
     reg_date = StringField('Data')
 
 
-    email_body = TextAreaField("Corpo do Email")
+
 
     submit = SubmitField("Salvar Alterações")
 
@@ -151,8 +153,13 @@ def edit_user(user_id):
         user.bairro = form.bairro.data
         user.numero = form.numero.data
         user.status = form.status.data
-        user.email_body = form.email_body.data
-        # user.reg_date = form.reg_date.data
+
+        user.reg_date = form.reg_date.data
+
+
+        #new
+        diary_dates = request.form.getlist('diary_date[]')
+        diary_texts = request.form.getlist('diary_text[]')
 
 
         try:
