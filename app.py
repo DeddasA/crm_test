@@ -1,10 +1,10 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, TextAreaField,SelectField,DateField
-from wtforms.validators import DataRequired, Email
+from wtforms import StringField, SubmitField,TextAreaField,SelectField,DateField
+from wtforms.validators import DataRequired, Email,Regexp
 from data_base import UserInfo, db
+from datetime import datetime
 # from dash_main import create_dash_app
-
 from sqlalchemy.exc import IntegrityError
 
 
@@ -23,76 +23,78 @@ db.init_app(app)
 class SimpleForm(FlaskForm):
     name = StringField("Nome", validators=[DataRequired()])
     email = StringField("Email", validators=[DataRequired(), Email()])
-    phone = StringField("Telefone")
+    phone = StringField("Telefone", validators=[DataRequired()])
     state = StringField("Estado", validators=[DataRequired()])
-    city = StringField("Cidade")
-    address = StringField("Endereço")
-    bairro = StringField("Bairro")
-    numero = StringField("Número")
-    status = SelectField("Status", choices=[(""),('Conluído'), ('Em andamento'),
-                                           ('Pendente'),("Nã iniciado")],
-                       validators=[DataRequired()])
+    city = StringField("Cidade", validators=[DataRequired()])
+    address = StringField("Endereço", validators=[DataRequired()])
+    bairro = StringField("Bairro", validators=[DataRequired()])
+    numero = StringField("numero", validators=[DataRequired()])
+    status = SelectField("Status", choices=[(""), ('Conluído'), ('Em andamento'),
+                                           ('Pendente'), ("Nã iniciado")],
+                        validators=[DataRequired()])
+
+    reg_date = DateField('Data',validators=[DataRequired()])
 
 
-    start_date = DateField('Data', format='%d-%m-%y', validators=[DataRequired()])
+
+
 
     email_body = TextAreaField("Corpo do Email")
 
     submit = SubmitField("Enviar")
 
 # Route for the form
-
-
 @app.route("/", methods=["GET", "POST"])
 def simple_form():
     form = SimpleForm()
-    if form.validate_on_submit():
-        # Gather form data
-        name = form.name.data
-        email = form.email.data
-        phone = form.phone.data
-        state = form.state.data
-        city = form.city.data
-        address = form.address.data
-        bairro = form.bairro.data
-        numero = form.numero.data
-        email_body= form.email_body.data
-        status = form.status.data
-        date = form.start_date
+    if request.method == "POST":
+        if form.validate_on_submit():
+            # Gather form data
+            name = form.name.data
+            email = form.email.data
+            phone = form.phone.data
+            state = form.state.data
+            city = form.city.data
+            address = form.address.data
+            bairro = form.bairro.data
+            numero = form.numero.data
+            status = form.status.data
+            email_body = form.email_body.data
+            reg_date = form.reg_date.data
 
-        # Check for existing email
-        existing_user = UserInfo.query.filter_by(email=email).first()
-        if existing_user:
-            flash(f"Email '{email}' já está em uso.", "danger")
-            return render_template("simple_form.html", form=form)
+            existing_user = UserInfo.query.filter_by(email=email).first()
+            if existing_user:
+                flash(f"Email '{email}' já está em uso.", "danger")
+                return render_template("simple_form.html", form=form)
 
-        new_user = UserInfo(
-            name=name,
-            email=email,
-            phone=phone,
-            state=state,
-            city=city,
-            address=address,
-            bairro=bairro,
-            numero=numero,
-            email_body=email_body,
-            status=status,
-            date=date
+            new_user = UserInfo(
+                name=name,
+                email=email,
+                phone=phone,
+                state=state,
+                city=city,
+                address=address,
+                bairro=bairro,
+                numero=numero,
+                email_body=email_body,
+                status=status,
+                reg_date=reg_date
 
-        )
-        try:
-            db.session.add(new_user)
-            db.session.commit()
-            flash("Usuário salvo com sucesso!", "success")
-            return redirect(url_for("simple_form"))
-        except IntegrityError:
-            db.session.rollback()
-            flash("Erro: já existe um registro com este email.", "danger")
-        except Exception as e:
-            db.session.rollback()
-            flash(f"Erro ao salvar o usuário: {e}", "danger")
+            )
+            try:
+                db.session.add(new_user)
+                db.session.commit()
+                flash("Usuário salvo com sucesso!", "success")
+                return redirect(url_for("simple_form"))
+            except IntegrityError:
+                db.session.rollback()
+                flash("Erro: já existe um registro com este email.", "danger")
+            except Exception as e:
+                db.session.rollback()
+                flash(f"Erro ao salvar o usuário: {e}", "danger")
+        return render_template("simple_form.html", form=form)
+
     return render_template("simple_form.html", form=form)
-
 
 
 
@@ -110,6 +112,11 @@ def search_user():
 
 
 
+
+
+
+
+
 class EditUserForm(FlaskForm):
     name = StringField("Nome:", validators=[DataRequired()])
     email = StringField("Email:", validators=[DataRequired(), Email()])
@@ -119,11 +126,14 @@ class EditUserForm(FlaskForm):
     address = StringField("Endereço:")
     bairro = StringField("Bairro:")
     numero = StringField("Número:")
-    email_body = TextAreaField("Corpo do Email")
-    start_date = DateField('Data', format='%d-%m-%y', validators=[DataRequired()])
     status = SelectField("Status", choices=[(""), ('Conluído'), ('Em andamento'),
                                             ('Pendente'), ("Nã iniciado")],
                          validators=[DataRequired()])
+
+    reg_date = StringField('Data')
+
+
+    email_body = TextAreaField("Corpo do Email")
 
     submit = SubmitField("Salvar Alterações")
 
@@ -140,9 +150,11 @@ def edit_user(user_id):
         user.address = form.address.data
         user.bairro = form.bairro.data
         user.numero = form.numero.data
-        user.email_body = form.email_body.data
         user.status = form.status.data
-        user.date = form.start_date.data
+        user.email_body = form.email_body.data
+        # user.reg_date = form.reg_date.data
+
+
         try:
             db.session.commit()
             flash("User details updated successfully!", "success")
@@ -167,6 +179,7 @@ def delete_user(user_id):
         db.session.rollback()
         flash(f"Erro ao excluir o usuário: {e}", "danger")
         return redirect(url_for("simple_form"))
+
 
 
 

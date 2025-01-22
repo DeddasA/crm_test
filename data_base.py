@@ -14,7 +14,7 @@ class UserInfo(db.Model):
     bairro = db.Column(db.String(100), nullable=False)
     numero = db.Column(db.String(10), nullable=False)
     email_body= db.Column(db.String(1200), nullable=False)
-    data = db.Column(db.String(8), nullable=False)
+    reg_date = db.Column(db.String(12), nullable=False)
     status =  db.Column(db.String(10), nullable=False)
 
     def __repr__(self):
