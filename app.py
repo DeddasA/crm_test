@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField,TextAreaField,SelectField,DateField,FieldList
 from wtforms.validators import DataRequired, Email,Regexp
-from data_base import UserInfo, db
+from data_base import UserInfo,DiaryEntry, db
 from datetime import datetime
 # from dash_main import create_dash_app
 from sqlalchemy.exc import IntegrityError
@@ -13,30 +13,29 @@ app = Flask(__name__)
 app.secret_key = "your_secret_key"
 
 # Database configuration
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///data.db"  # Change this to your database URI
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///data.db"
+
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 # Initialize the database
 db.init_app(app)
 
+
 # Form for user input
 class SimpleForm(FlaskForm):
     name = StringField("Nome", validators=[DataRequired()])
     email = StringField("Email", validators=[DataRequired(), Email()])
-    phone = StringField("Telefone", validators=[DataRequired()])
-    state = StringField("Estado", validators=[DataRequired()])
-    city = StringField("Cidade", validators=[DataRequired()])
-    address = StringField("Endereço", validators=[DataRequired()])
-    bairro = StringField("Bairro", validators=[DataRequired()])
-    numero = StringField("numero", validators=[DataRequired()])
-    status = SelectField("Status", choices=[(""), ('Conluído'), ('Em andamento'),
+    phone = StringField("Telefone")
+    state = StringField("Estado")
+    city = StringField("Cidade")
+    address = StringField("Endereço")
+    bairro = StringField("Bairro")
+    numero = StringField("numero")
+    status = SelectField("Status", choices=[(""),("Iniciado"), ('Conluído'), ('Em andamento'),
                                            ('Pendente'), ("Nã iniciado")],
                         validators=[DataRequired()])
 
     reg_date = DateField('Data',validators=[DataRequired()])
-
-    diary_dates = FieldList(DateField('Data do Diário', format='%d/%m/%Y'), min_entries=1)
-    diary_texts = FieldList(TextAreaField('Texto do Diário'), min_entries=1)
 
 
 
@@ -62,14 +61,13 @@ def simple_form():
             bairro = form.bairro.data
             numero = form.numero.data
             status = form.status.data
-
             reg_date = form.reg_date.data
 
             existing_user = UserInfo.query.filter_by(email=email).first()
             if existing_user:
                 flash(f"Email '{email}' já está em uso.", "danger")
                 return render_template("simple_form.html", form=form)
-
+            #Little fukcer! The keywords have to be in the fuking db.model! Fuck!
             new_user = UserInfo(
                 name=name,
                 email=email,
@@ -80,9 +78,11 @@ def simple_form():
                 bairro=bairro,
                 numero=numero,
                 status=status,
-                reg_date=reg_date
+                date=reg_date
 
             )
+
+
             try:
                 db.session.add(new_user)
                 db.session.commit()
@@ -112,13 +112,6 @@ def search_user():
     return render_template("search.html")
 
 
-
-
-
-
-
-
-
 class EditUserForm(FlaskForm):
     name = StringField("Nome:", validators=[DataRequired()])
     email = StringField("Email:", validators=[DataRequired(), Email()])
@@ -132,17 +125,28 @@ class EditUserForm(FlaskForm):
                                             ('Pendente'), ("Nã iniciado")],
                          validators=[DataRequired()])
 
-    reg_date = StringField('Data')
+    reg_date = DateField('Data')
 
+    diary_dates = FieldList(DateField('Data do Diário'), min_entries=1)
+    diary_texts = FieldList(TextAreaField('Texto do Diário'), min_entries=1)
+    user_id = StringField("Id")
 
 
 
     submit = SubmitField("Salvar Alterações")
 
+
+
+
+
+
+
 @app.route("/edit/<int:user_id>", methods=["GET", "POST"])
 def edit_user(user_id):
     user = UserInfo.query.get_or_404(user_id)
-    form = EditUserForm(obj=user)  # Pre-fill form with user's current data
+
+    form = EditUserForm(obj=user)
+    # Pre-fill form with user's current data
     if form.validate_on_submit():
         user.name = form.name.data
         user.email = form.email.data
@@ -153,16 +157,17 @@ def edit_user(user_id):
         user.bairro = form.bairro.data
         user.numero = form.numero.data
         user.status = form.status.data
-
         user.reg_date = form.reg_date.data
 
 
-        #new
-        diary_dates = request.form.getlist('diary_date[]')
-        diary_texts = request.form.getlist('diary_text[]')
+
+
+
+
 
 
         try:
+
             db.session.commit()
             flash("User details updated successfully!", "success")
             return redirect(url_for("search_user"))
@@ -170,6 +175,10 @@ def edit_user(user_id):
             db.session.rollback()
             flash(f"Error updating user: {e}", "danger")
     return render_template("user_editing.html", form=form, user=user)
+
+
+
+
 
 
 @app.route("/delete/<int:user_id>", methods=["POST"])
@@ -190,6 +199,102 @@ def delete_user(user_id):
 
 
 
+@app.route("/diary/<int:user_id>", methods=["GET", "POST"])
+def diary_entries(user_id):
+    user = UserInfo.query.get_or_404(user_id)
+    form = EditUserForm(obj=user)
+
+    if request.method == "POST":
+        # Get form data
+        date = form.reg_date.data
+        text = request.form.get("text")
+
+        if not  date  or not text:
+            flash("Both date and text fields are required.", "danger")
+            return redirect(url_for("diary_entries", user_id=user_id))
+
+        try:
+            # Parse the date string to a date object
+
+            # Check if a diary entry for the same date already exists
+            existing_entry = DiaryEntry.query.filter_by(user_id=user_id, date=date).first()
+            if existing_entry:
+                flash("An entry for this date already exists. Update it instead.", "danger")
+
+                return redirect(url_for("diary_entries", user_id=user_id))
+
+            # Add a new diary entry
+            new_entry = DiaryEntry(user_id=user_id, date=date, text=text)
+            db.session.add(new_entry)
+            db.session.commit()
+            flash("Diary entry added successfully!", "success")
+
+        except ValueError:
+            flash("Invalid date format. Use DD/MM/YYYY.", "danger")
+
+    # Fetch all diary entries for this user
+    diary_entries = DiaryEntry.query.filter_by(user_id=user_id).order_by(DiaryEntry.date.desc()).all()
+
+    return render_template("diary_entries.html",
+                           user=user, diary_entries=diary_entries,
+                           user_id=user.id,form=form)
+
+
+
+
+@app.route("/diary/delete/<int:entry_id>", methods=["POST"])
+def delete_diary_entry(entry_id):
+    entry = DiaryEntry.query.get_or_404(entry_id)
+
+    user_id = entry.user_id
+
+    try:
+        db.session.delete(entry)
+        db.session.commit()
+        flash("Diary entry deleted successfully!", "success")
+    except Exception as e:
+        db.session.rollback()
+        flash(f"Error deleting diary entry: {e}", "danger")
+    return redirect(url_for("diary_entries", user_id=user_id))
+
+#___________________________________________________________________________
+#___________________________________________________________________________
+#___________________________________________________________________________
+
+class EditDiaryEntryForm(FlaskForm):
+    text = StringField('Text', validators=[DataRequired()])
+
+    submit = SubmitField('Update Entry')
+
+
+
+@app.route("/diary/update/<int:entry_id>", methods=["GET", "POST"])
+def update_diary_entry(entry_id):
+    entry = DiaryEntry.query.get_or_404(entry_id)  # Get the diary entry by ID
+    user_id = entry.user_id  # Assuming user_id is attached to the entry
+
+    if request.method == "POST":
+        # Retrieve the updated text from the form
+        updated_text = request.form.get("text")
+        updated_date = request.form.get("date")
+        # Get new text from form
+
+        if updated_text or updated_date:
+            # Update the existing entry's text
+            entry.text = updated_text
+            entry.date = datetime.strptime(updated_date, "%Y-%m-%d")
+
+            try:
+                db.session.commit()  # Commit the change to the database
+                flash("Diary entry updated successfully!", "success")
+                return redirect(url_for("diary_entries", user_id=user_id))
+            except Exception as e:
+                db.session.rollback()  # Rollback in case of error
+                flash(f"Error updating diary entry: {e}", "danger")
+        else:
+            flash("Text cannot be empty!", "danger")
+
+    return redirect(url_for("diary_entries", user_id=user_id))
 
 
 

@@ -6,52 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit User</title>
 
-    <!-- JavaScript for Adding and Removing Diary Entries -->
-    <script type="text/javascript">
-        function addDiaryEntry() {
-            var container = document.getElementById("diary-entries-container");
-
-            // Create a new div for the new entry
-            var newEntry = document.createElement("div");
-            newEntry.classList.add("diary-entry");
-
-            // Create the date field
-            var dateLabel = document.createElement("label");
-            dateLabel.innerText = "Data:";
-            var dateField = document.createElement("input");
-            dateField.type = "date";
-            dateField.name = "diary_date[]";  // Use array-like names to handle multiple entries
-
-            // Create the text area for the diary entry
-            var textAreaLabel = document.createElement("label");
-            textAreaLabel.innerText = "Entrada:";
-            var textArea = document.createElement("textarea");
-            textArea.name = "diary_text[]";  // Use array-like names to handle multiple entries
-            textArea.rows = 4;
-            textArea.cols = 50;
-
-            // Create the delete button
-            var deleteButton = document.createElement("button");
-            deleteButton.type = "button";
-            deleteButton.innerText = "Excluir";
-            deleteButton.onclick = function() {
-                removeDiaryEntry(newEntry);
-            };
-
-            // Append the new fields to the container
-            newEntry.appendChild(dateLabel);
-            newEntry.appendChild(dateField);
-            newEntry.appendChild(textAreaLabel);
-            newEntry.appendChild(textArea);
-            newEntry.appendChild(deleteButton);
-            container.appendChild(newEntry);
-        }
-
-        function removeDiaryEntry(entry) {
-            var container = document.getElementById("diary-entries-container");
-            container.removeChild(entry);
-        }
-    </script>
 </head>
 <body>
     <h1>Vizualiar e/ou editar clientes.</h1>
@@ -74,6 +28,7 @@
 
         <p>{{ form.numero.label }} {{ form.numero(size=20) }}</p>
 
+
         <p>
             <div>
                 {{ form.reg_date.label }}<br>
@@ -86,19 +41,15 @@
                 {{ form.status.label }}<br>
                 {{ form.status(style="width: 100px;") }}<br>  <!-- Set a specific width for the dropdown -->
             </div>
-        </p>
 
-        <!-- Diary Entries Section -->
-        <h2>Entradas de Diário</h2>
-        <div id="diary-entries-container">
-            <!-- Dynamically added diary entries will go here -->
-        </div>
-        <button type="button" onclick="addDiaryEntry()">Adicionar Entrada</button><br><br>
-
-        <p>
+   <p>
             <button type="submit">{{ form.submit.label }}</button>
-        </p>
+
+
     </form>
+
+
+
 
     <h1>Detalhes do usuário</h1>
 
@@ -112,7 +63,10 @@
             <button type="submit" onclick="return confirm('Tem Certeza que quer remover este usuário??');">
                 Excluir Usuário
             </button>
+
         </p>
     </form>
+
+<a href="{{ url_for('diary_entries', user_id=user.id) }}">Atualizações</a>
 </body>
 </html>

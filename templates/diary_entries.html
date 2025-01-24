@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <title>Diary Entries</title>
+
+     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit User</title>
+
+
+      <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+
+</head>
+<body>
+    <h1>Diary for {{ user.name }}</h1>
+
+    <!-- Add New Diary Entry -->
+    <form method="POST" action="{{ url_for('diary_entries', user_id=user.id) }}">
+          <div>
+                {{ form.reg_date.label }}<br>
+                {{ form.reg_date() }} required
+            </div>
+
+
+        <br>
+        <label for="text">Text:</label>
+        <textarea id="text" name="text"
+                  rows="10" cols="50" required></textarea>
+        <br>
+        <button type="submit">Add Entry</button>
+    </form>
+
+
+
+<h2>Existing Diary Entries</h2>
+<ul>
+    {% for entry in diary_entries %}
+        <form method="POST" action="{{ url_for('update_diary_entry',
+         entry_id=entry.id) }}" style="display: inline;">
+
+            <!-- Date field -->
+            <label for="diary_date_{{ entry.id }}">Date:</label>
+            <input type="date" id="diary_date_{{ entry.id }}" name="date"
+                   value="{{ entry.date.strftime('%Y-%m-%d') }}">
+
+            <!-- Text field -->
+            <label class="blue-font"
+                   for="diary_text_{{ entry.id }}">Text:</label>
+            <textarea class="black-border"
+                      id="diary_text_{{ entry.id }}" name="text"
+                      rows="10" cols="50">
+                {{ entry.text }}
+            </textarea>
+
+            <button type="submit">Update</button>
+        </form>
+
+        <!-- Delete button -->
+        <form method="POST" action="{{ url_for('delete_diary_entry', entry_id=entry.id) }}" style="display: inline;">
+            <button type="submit" onclick="return confirm('Are you sure you want to delete this entry?');">Delete</button>
+        </form>
+    {% endfor %}
+</ul>
+
+     </form>
+    {% with messages = get_flashed_messages(with_categories=True) %}
+    {% if messages %}
+        <ul>
+            {% for category, message in messages %}
+            <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+
+    {% endif %}
+    {% endwith %}
+
+    <a href="{{ url_for('edit_user', user_id=user.id) }}">Back to User</a>
+</body>
+</html>

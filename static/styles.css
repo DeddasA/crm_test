@@ -1,0 +1,25 @@
+<style>
+
+.justified-textarea {
+    text-align: justify !important;
+    padding-right: 100px !important;  /* Optional padding */
+    width: 100% !important;  /* Ensure it spans the full width */
+    box-sizing: border-box !important; /* Prevent overflow due to padding */
+}
+.black-border {
+    border: 1px solid black;  /* Adds a black border */
+    width: 300px;              /* Adjusts the width of the box */
+    height: 100px;             /* Adjusted to 'height' */
+    text-align: left;          /* Aligns the text to the left */
+    padding: 10px;             /* Adds space inside the box */
+    direction: ltr;            /* Forces left-to-right text direction */
+}
+
+
+
+.blue-font {
+    color: blue;
+}
+
+
+</style>
