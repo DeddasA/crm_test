@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-    <title>Diary Entries</title>
+    <title>Diário</title>
 
      <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,7 +14,7 @@
 
 </head>
 <body>
-    <h1>Diary for {{ user.name }}</h1>
+    <h1>Entradas de - {{ user.name }}</h1>
 
     <!-- Add New Diary Entry -->
     <form method="POST" action="{{ url_for('diary_entries', user_id=user.id) }}">
@@ -25,44 +25,60 @@
 
 
         <br>
-        <label for="text">Text:</label>
-        <textarea id="text" name="text"
+
+       <p> <label for="text"></label>
+        <textarea class="justified-textarea"  id="text" name="text"
                   rows="10" cols="50" required></textarea>
         <br>
-        <button type="submit">Add Entry</button>
+
+
+
+
+    <div class="button-container">
+        <button  type="submit">Adicionar entrada</button>
+    </div>
+
     </form>
 
 
 
-<h2>Existing Diary Entries</h2>
-<ul>
-    {% for entry in diary_entries %}
-        <form method="POST" action="{{ url_for('update_diary_entry',
-         entry_id=entry.id) }}" style="display: inline;">
+<h2>Entradas existentes</h2>
+   <ul>
+        {% for entry in diary_entries %}
+        <li>
+            <details>
+                <summary class=" details summary"> Atualização de - {{ entry['date'] }}</summary>
 
-            <!-- Date field -->
-            <label for="diary_date_{{ entry.id }}">Date:</label>
-            <input type="date" id="diary_date_{{ entry.id }}" name="date"
-                   value="{{ entry.date.strftime('%Y-%m-%d') }}">
+                <form method="POST" action="{{ url_for('update_diary_entry', entry_id=entry['id']) }}">
+                    <!-- Date field -->
+                    <label for="diary_date_{{ entry['id'] }}">Date:</label>
+                    <input type="date" id="diary_date_{{ entry['id'] }}" name="date"
+                           value="{{ entry['date'] }}">
 
-            <!-- Text field -->
-            <label class="blue-font"
-                   for="diary_text_{{ entry.id }}">Text:</label>
-            <textarea class="black-border"
-                      id="diary_text_{{ entry.id }}" name="text"
-                      rows="10" cols="50">
-                {{ entry.text }}
-            </textarea>
+                    <!-- Text field -->
+                    <label class="blue-font" for="diary_text_{{ entry['id'] }}"></label>
+                    <textarea class="black-border" id="diary_text_{{ entry['id'] }}" name="text"
+                              rows="5" cols="50">{{ entry['text'] }}</textarea>
 
-            <button type="submit">Update</button>
-        </form>
+        <div class="button-container">
+    <!-- Update Form -->
+    <form method="POST" action="{{ url_for('update_diary_entry', entry_id=entry.id) }}">
+        <button type="submit">Update</button>
+    </form>
 
-        <!-- Delete button -->
-        <form method="POST" action="{{ url_for('delete_diary_entry', entry_id=entry.id) }}" style="display: inline;">
-            <button type="submit" onclick="return confirm('Are you sure you want to delete this entry?');">Delete</button>
-        </form>
-    {% endfor %}
-</ul>
+    <!-- Delete Form -->
+    <form method="POST" action="{{ url_for('delete_diary_entry', entry_id=entry.id) }}">
+        <button type="submit" onclick="return confirm('Are you sure you want to delete this entry?');">Delete</button>
+    </form>
+</div>
+
+            </details>
+        </li>
+
+
+
+        {% endfor %}
+    </ul>
 
      </form>
     {% with messages = get_flashed_messages(with_categories=True) %}

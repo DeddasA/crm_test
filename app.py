@@ -162,10 +162,6 @@ def edit_user(user_id):
 
 
 
-
-
-
-
         try:
 
             db.session.commit()
@@ -201,12 +197,14 @@ def delete_user(user_id):
 
 @app.route("/diary/<int:user_id>", methods=["GET", "POST"])
 def diary_entries(user_id):
+
     user = UserInfo.query.get_or_404(user_id)
     form = EditUserForm(obj=user)
 
     if request.method == "POST":
         # Get form data
         date = form.reg_date.data
+
         text = request.form.get("text")
 
         if not  date  or not text:
@@ -219,7 +217,8 @@ def diary_entries(user_id):
             # Check if a diary entry for the same date already exists
             existing_entry = DiaryEntry.query.filter_by(user_id=user_id, date=date).first()
             if existing_entry:
-                flash("An entry for this date already exists. Update it instead.", "danger")
+                flash("Há uma entrada com essa data. Caso queira continuar"
+                      "atualize-a.", "danger")
 
                 return redirect(url_for("diary_entries", user_id=user_id))
 
@@ -227,10 +226,10 @@ def diary_entries(user_id):
             new_entry = DiaryEntry(user_id=user_id, date=date, text=text)
             db.session.add(new_entry)
             db.session.commit()
-            flash("Diary entry added successfully!", "success")
+            flash("Entrada Adicionada!", "success")
 
         except ValueError:
-            flash("Invalid date format. Use DD/MM/YYYY.", "danger")
+            flash("Formato de data inválida. Use DD/MM/YYYY.", "danger")
 
     # Fetch all diary entries for this user
     diary_entries = DiaryEntry.query.filter_by(user_id=user_id).order_by(DiaryEntry.date.desc()).all()
@@ -255,6 +254,7 @@ def delete_diary_entry(entry_id):
     except Exception as e:
         db.session.rollback()
         flash(f"Error deleting diary entry: {e}", "danger")
+
     return redirect(url_for("diary_entries", user_id=user_id))
 
 #___________________________________________________________________________
@@ -282,17 +282,17 @@ def update_diary_entry(entry_id):
         if updated_text or updated_date:
             # Update the existing entry's text
             entry.text = updated_text
-            entry.date = datetime.strptime(updated_date, "%Y-%m-%d")
+            entry.date = datetime.strptime(updated_date, "%d-%m-%dy")
 
             try:
                 db.session.commit()  # Commit the change to the database
-                flash("Diary entry updated successfully!", "success")
+                flash("Entrada atualizada com sucesso!", "success")
                 return redirect(url_for("diary_entries", user_id=user_id))
             except Exception as e:
                 db.session.rollback()  # Rollback in case of error
-                flash(f"Error updating diary entry: {e}", "danger")
+                flash(f"Erro em atualizar a entrada!: {e}", "danger")
         else:
-            flash("Text cannot be empty!", "danger")
+            flash("Por favor não deixe o a caixa de texto vazia!", "danger")
 
     return redirect(url_for("diary_entries", user_id=user_id))
 
