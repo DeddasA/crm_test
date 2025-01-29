@@ -35,7 +35,7 @@ class SimpleForm(FlaskForm):
                                            ('Pendente'), ("Nã iniciado")],
                         validators=[DataRequired()])
 
-    reg_date = DateField('Data',validators=[DataRequired()])
+    reg_date = DateField('Data', format='%d-%m-%Y',validators=[DataRequired()])
 
 
 
@@ -125,7 +125,7 @@ class EditUserForm(FlaskForm):
                                             ('Pendente'), ("Nã iniciado")],
                          validators=[DataRequired()])
 
-    reg_date = DateField('Data')
+    reg_date = DateField('Data', validators=[DataRequired()])
 
     diary_dates = FieldList(DateField('Data do Diário'), min_entries=1)
     diary_texts = FieldList(TextAreaField('Texto do Diário'), min_entries=1)
@@ -146,7 +146,8 @@ def edit_user(user_id):
     user = UserInfo.query.get_or_404(user_id)
 
     form = EditUserForm(obj=user)
-    # Pre-fill form with user's current data
+
+
     if form.validate_on_submit():
         user.name = form.name.data
         user.email = form.email.data
@@ -170,27 +171,32 @@ def edit_user(user_id):
     return render_template("user_editing.html", form=form, user=user)
 
 
-
-
-
+#_______Delete user____________________________________________________________________
+#___________________________________________________________________________
+#___________________________________________________________________________
 
 @app.route("/delete/<int:user_id>", methods=["POST"])
 def delete_user(user_id):
-    print(f"Deleting user with ID: {user_id}")
+
+
     user = UserInfo.query.get_or_404(user_id)
+
     try:
-        db.session.delete(user)
-        print(f"User deleted: {user.name}")
+        db.session.delete(user_id)
+        print(f"User deleted: {user_id.name}")
         db.session.commit()
         flash("Usuário excluído com sucesso!", "success")
-        return redirect(url_for("simple_form"))
+        return redirect(url_for("simple_form",user_id = user.id))
+
     except Exception as e:
         db.session.rollback()
-        flash(f"Erro ao excluir o usuário: {e}", "danger")
-        return redirect(url_for("simple_form"))
+        flash(f"Erro ao excluir o usuário: Entradas existentes!", "perigo")
+        return redirect(url_for("diary_entries",user_id = user.id))
 
 
-
+#_____________Diary entries______________________________________________________________
+#___________________________________________________________________________
+#___________________________________________________________________________
 
 @app.route("/diary/<int:user_id>", methods=["GET", "POST"])
 def diary_entries(user_id):
@@ -204,14 +210,13 @@ def diary_entries(user_id):
 
         text = request.form.get("text")
 
-        if not  date  or not text:
+        if not date or not text:
             flash("Both date and text fields are required.", "danger")
+
             return redirect(url_for("diary_entries", user_id=user_id))
 
         try:
-            # Parse the date string to a date object
 
-            # Check if a diary entry for the same date already exists
             existing_entry = DiaryEntry.query.filter_by(user_id=user_id, date=date).first()
             if existing_entry:
                 flash("Há uma entrada com essa data. Caso queira continuar"
@@ -236,7 +241,9 @@ def diary_entries(user_id):
                            user_id=user.id,form=form)
 
 
-
+#____________________Delete Entries_______________________________________________________
+#___________________________________________________________________________
+#___________________________________________________________________________
 
 @app.route("/diary/delete/<int:entry_id>", methods=["POST"])
 def delete_diary_entry(entry_id):
@@ -264,22 +271,35 @@ class EditDiaryEntryForm(FlaskForm):
     submit = SubmitField('Update Entry')
 
 
-
+#____________________Update Entries_______________________________________________________
+#___________________________________________________________________________
+#___________________________________________________________________________
 @app.route("/diary/update/<int:entry_id>", methods=["GET", "POST"])
 def update_diary_entry(entry_id):
-    entry = DiaryEntry.query.get_or_404(entry_id)  # Get the diary entry by ID
-    user_id = entry.user_id  # Assuming user_id is attached to the entry
+    entry = DiaryEntry.query.get_or_404(entry_id)
+    user_id = entry.user_id
 
     if request.method == "POST":
-        # Retrieve the updated text from the form
+
         updated_text = request.form.get("text")
         updated_date = request.form.get("date")
         # Get new text from form
 
+
         if updated_text or updated_date:
-            # Update the existing entry's text
-            entry.text = updated_text
-            entry.date = datetime.strptime(updated_date, "%d-%m-%dy")
+            if updated_text:
+                entry.text = updated_text
+
+            if updated_date:  # Only update if date is provided
+                try:
+                    entry.date = datetime.strptime(updated_date, "%d-%m-%Y").date()
+                except ValueError:
+                    flash("Formato de data inválido! Use DD-MM-YYYY.", "danger")
+                    return redirect(url_for("update_diary_entry", entry_id=entry_id))
+
+
+
+
 
             try:
                 db.session.commit()  # Commit the change to the database

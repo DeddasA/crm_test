@@ -22,7 +22,8 @@
     <h1>Entradas de - {{ user.name }}</h1>
 
     <!-- Add New Diary Entry -->
-    <form method="POST" action="{{ url_for('diary_entries', user_id=user.id) }}">
+    <form method="POST" action="{{ url_for('diary_entries',
+    user_id=user.id) }}">
           <div>
                 {{ form.reg_date.label }}<br>
                 {{ form.reg_date() }} required
@@ -52,17 +53,19 @@
         {% for entry in diary_entries %}
         <li>
             <details>
-                <summary class=" details summary"> Atualização de - {{ entry['date'] }}</summary>
+                <summary class="details summary"> Atualização de -
+                    <b>{{ entry.date.strftime('%d/%m/%Y')
+                    if entry.date else 'Sem data' }}</b></summary>
 
-                <form method="POST" action="{{ url_for('update_diary_entry', entry_id=entry['id']) }}">
-                    <!-- Date field -->
-                    <label for="diary_date_{{ entry['id'] }}">Date:</label>
-                    <input type="date" id="diary_date_{{ entry['id'] }}" name="date"
-                           value="{{ entry['date'] }}">
 
-                    <!-- Text field -->
-                    <label class="blue-font" for="diary_text_{{ entry['id'] }}"></label>
-                    <textarea class="black-border" id="diary_text_{{ entry['id'] }}" name="text"
+                <form method="POST"
+                      action="{{ url_for('update_diary_entry',
+                       entry_id=entry['id']) }}">
+
+                    <label class="blue-font"
+                           for="diary_text_{{ entry['id'] }}"></label>
+                    <textarea class="black-border"
+                              id="diary_text_{{ entry['id'] }}" name="text"
                               rows="5" cols="50">{{ entry['text'] }}</textarea>
 
         <div class="button-container">
@@ -72,10 +75,15 @@
     </form>
 
     <!-- Delete Form -->
-    <form method="POST" action="{{ url_for('delete_diary_entry', entry_id=entry.id) }}">
-        <button type="submit" onclick="return confirm('Are you sure you want to delete this entry?');">Delete</button>
-    </form>
+   <form method="POST" action="{{ url_for('delete_diary_entry', entry_id=entry.id) }}">
+    <button type="submit" onclick="return confirm('Tem certeza quue quer deletar essa aualização?');">
+        Delete
+    </button>
+</form>
+
 </div>
+
+
 
             </details>
         </li>
