@@ -4,12 +4,12 @@ from wtforms import StringField, SubmitField,TextAreaField,SelectField,DateField
 from wtforms.validators import DataRequired, Email,Regexp
 from data_base import UserInfo,DiaryEntry, db
 from datetime import datetime
-from dash_main import create_dash_app
+# from dash_main import create_dash_app
 from sqlalchemy.exc import IntegrityError
 
 
 app = Flask(__name__)
-create_dash_app(app)
+# create_dash_app(app)
 app.secret_key = "your_secret_key"
 
 # Database configuration
@@ -35,7 +35,7 @@ class SimpleForm(FlaskForm):
                                            ('Pendente'), ("Nã iniciado")],
                         validators=[DataRequired()])
 
-    # reg_date = DateField('Data', format='%d-%m-%Y',validators=[DataRequired()])
+
 
 
 
@@ -125,7 +125,7 @@ class EditUserForm(FlaskForm):
                                             ('Pendente'), ("Nã iniciado")],
                          validators=[DataRequired()])
 
-
+    reg_date = DateField('Data')
 
     diary_dates = FieldList(DateField('Data do Diário'), min_entries=1)
     diary_texts = FieldList(TextAreaField('Texto do Diário'), min_entries=1)
@@ -134,11 +134,6 @@ class EditUserForm(FlaskForm):
 
 
     submit = SubmitField("Salvar Alterações")
-
-
-
-
-
 
 
 @app.route("/edit/<int:user_id>", methods=["GET", "POST"])
@@ -202,12 +197,12 @@ def diary_entries(user_id):
     form = EditUserForm(obj=user)
 
     if request.method == "POST":
-        # Get form data
+
         date = form.reg_date.data
 
         text = request.form.get("text")
 
-        if not date or not text:
+        if not text:
             flash("Both date and text fields are required.", "danger")
 
             return redirect(url_for("diary_entries", user_id=user_id))
