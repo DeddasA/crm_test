@@ -1,0 +1,22 @@
+Novos Recursos - CRM - 1.1 Alpha
+
+-Deletar Usuário por ID
+
+-Adicionada uma rota para excluir usuários utilizando o user_id único.
+A exclusão é confirmada por um diálogo pop-up no UI para evitar remoções acidentais.
+Mensagens de feedback (flash) são exibidas para indicar sucesso ou falha.
+Deletar Usuário por Email
+
+-Funcionalidade introduzida para excluir um usuário com base no endereço de email fornecido através de um formulário.
+Facilita a gestão de usuários pelos administradores sem depender do user_id.
+Atualizar Dashboard
+
+-Adicionado um botão de atualização no dashboard para recarregar os dados exibidos dinamicamente, sem necessidade de reiniciar o servidor.
+Sincronização simplificada entre o banco de dados e a interface do usuário.
+Links de Navegação
+
+-Implementado um link para voltar à página inicial a partir do dashboard, melhorando a usabilidade.
+Melhorias no Tratamento de Erros
+
+-Feedback aprimorado para operações com falha (por exemplo, usuário não encontrado ou erros no banco de dados).
+Mensagens claras e amigáveis são exibidas na interface usando flash.
