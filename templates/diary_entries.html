@@ -14,6 +14,11 @@
 
 </head>
 <body>
+   <div class="navbar">
+        <a href="/">Home</a>
+        <a href="/search">Pesquisa de usuário</a>
+        <a href="/dashboard">Dashboard</a>
+    </div>
     <h1>Entradas de - {{ user.name }}</h1>
 
     <!-- Add New Diary Entry -->
@@ -92,6 +97,12 @@
     {% endif %}
     {% endwith %}
 
-    <a href="{{ url_for('edit_user', user_id=user.id) }}">Back to User</a>
+ <div class="button-container">
+         <form action="{{ url_for('edit_user', user_id=user.id) }}" method="GET">
+    <button type="submit">Voltar para edição de usuário</button>
+</form>
+ </div>
+
+
 </body>
 </html>

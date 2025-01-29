@@ -23,13 +23,23 @@ def create_dash_app(flask_app):
     # Function to fetch data from the database
     def fetch_data():
         conn = sqlite3.connect('instance/data.db')
-        query = 'SELECT * FROM user_info'
+        query = '''
+               SELECT *
+               FROM user_info
+               JOIN diary_entry ON user_info.id
+                = diary_entry.id;
+               '''
+
+
         df = pd.read_sql(query, conn)
         conn.close()
         return df
 
+
+
     # Initial DataFjjrame
     df = fetch_data()
+
 
     # Dash layout
     dash_app.layout = html.Div([
@@ -48,20 +58,27 @@ def create_dash_app(flask_app):
             id='table',
             columns=[
                 {'name': 'ID', 'id': 'id'},  # Display the 'id' column
-                {'name': 'Nome', 'id': 'name'} ,
-                {'name': 'Email', 'id': 'email'}
-                # Display the 'name' column
+                {'name': 'Nome', 'id': 'name'},
+                {'name': 'Email', 'id': 'email'},
+                {'name': 'Updates', 'id': 'text'},
+                {'name': 'Update date', 'id': 'date'}
             ],
             data=df.to_dict('records'),
             style_table={'height': '100px', 'overflowY': 'auto'},
         ),
     ])
 
-    # Callback to refresh the data table
+
+
+
     @dash_app.callback(
         Output('table', 'data'),
         Input('refresh-button', 'n_clicks')
     )
+
+
+
+
 
 
     def refresh_table(n_clicks):
@@ -80,4 +97,4 @@ def home():
     return "Navigate to /dashboard to view the dashboard"
 
 if __name__ == "__main__":
-    app_2.run(debug=True)
+    app.run(debug=True)

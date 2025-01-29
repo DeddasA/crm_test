@@ -4,12 +4,12 @@ from wtforms import StringField, SubmitField,TextAreaField,SelectField,DateField
 from wtforms.validators import DataRequired, Email,Regexp
 from data_base import UserInfo,DiaryEntry, db
 from datetime import datetime
-# from dash_main import create_dash_app
+from dash_main import create_dash_app
 from sqlalchemy.exc import IntegrityError
 
 
 app = Flask(__name__)
-# create_dash_app(app)
+create_dash_app(app)
 app.secret_key = "your_secret_key"
 
 # Database configuration
@@ -158,9 +158,6 @@ def edit_user(user_id):
         user.numero = form.numero.data
         user.status = form.status.data
         user.reg_date = form.reg_date.data
-
-
-
 
         try:
 
