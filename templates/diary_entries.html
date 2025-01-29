@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <title>Diário</title>
+
+     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit User</title>
+
+
+      <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+
+</head>
+<body>
+   <div class="navbar">
+        <a href="/">Home</a>
+        <a href="/search">Pesquisa de usuário</a>
+        <a href="/dashboard">Dashboard</a>
+    </div>
+    <h1>Entradas de - {{ user.name }}</h1>
+
+    <!-- Add New Diary Entry -->
+    <form method="POST" action="{{ url_for('diary_entries',
+    user_id=user.id) }}">
+          <div>
+                {{ form.reg_date.label }}<br>
+                {{ form.reg_date() }} required
+            </div>
+
+
+        <br>
+
+       <p> <label for="text"></label>
+        <textarea class="justified-textarea"  id="text" name="text"
+                  rows="10" cols="50" required></textarea>
+        <br>
+
+
+
+
+    <div class="button-container">
+        <button  type="submit">Adicionar entrada</button>
+    </div>
+
+    </form>
+
+
+
+<h2>Entradas existentes</h2>
+   <ul>
+        {% for entry in diary_entries %}
+        <li>
+            <details>
+                <summary class="details summary"> Atualização de -
+                    <b>{{ entry.date.strftime('%d/%m/%Y')
+                    if entry.date else 'Sem data' }}</b></summary>
+
+
+                <form method="POST"
+                      action="{{ url_for('update_diary_entry',
+                       entry_id=entry['id']) }}">
+
+                    <label class="blue-font"
+                           for="diary_text_{{ entry['id'] }}"></label>
+                    <textarea class="black-border"
+                              id="diary_text_{{ entry['id'] }}" name="text"
+                              rows="5" cols="50">{{ entry['text'] }}</textarea>
+
+        <div class="button-container">
+    <!-- Update Form -->
+    <form method="POST" action="{{ url_for('update_diary_entry', entry_id=entry.id) }}">
+        <button type="submit">Update</button>
+    </form>
+
+    <!-- Delete Form -->
+   <form method="POST" action="{{ url_for('delete_diary_entry', entry_id=entry.id) }}">
+    <button type="submit" onclick="return confirm('Tem certeza quue quer deletar essa aualização?');">
+        Delete
+    </button>
+</form>
+
+</div>
+
+
+
+            </details>
+        </li>
+
+
+
+        {% endfor %}
+    </ul>
+
+     </form>
+    {% with messages = get_flashed_messages(with_categories=True) %}
+    {% if messages %}
+        <ul>
+            {% for category, message in messages %}
+            <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+
+    {% endif %}
+    {% endwith %}
+
+ <div class="button-container">
+         <form action="{{ url_for('edit_user', user_id=user.id) }}" method="GET">
+    <button type="submit">Voltar para edição de usuário</button>
+</form>
+ </div>
+
+
+</body>
+</html>
