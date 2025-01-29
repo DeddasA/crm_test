@@ -35,7 +35,7 @@ class SimpleForm(FlaskForm):
                                            ('Pendente'), ("Nã iniciado")],
                         validators=[DataRequired()])
 
-    reg_date = DateField('Data', format='%d-%m-%Y',validators=[DataRequired()])
+    # reg_date = DateField('Data', format='%d-%m-%Y',validators=[DataRequired()])
 
 
 
@@ -61,7 +61,7 @@ def simple_form():
             bairro = form.bairro.data
             numero = form.numero.data
             status = form.status.data
-            reg_date = form.reg_date.data
+            # reg_date = form.reg_date.data
 
             existing_user = UserInfo.query.filter_by(email=email).first()
             if existing_user:
@@ -78,7 +78,7 @@ def simple_form():
                 bairro=bairro,
                 numero=numero,
                 status=status,
-                date=reg_date
+                # date=reg_date
 
             )
 
@@ -125,7 +125,7 @@ class EditUserForm(FlaskForm):
                                             ('Pendente'), ("Nã iniciado")],
                          validators=[DataRequired()])
 
-    reg_date = DateField('Data', validators=[DataRequired()])
+
 
     diary_dates = FieldList(DateField('Data do Diário'), min_entries=1)
     diary_texts = FieldList(TextAreaField('Texto do Diário'), min_entries=1)
@@ -158,16 +158,16 @@ def edit_user(user_id):
         user.bairro = form.bairro.data
         user.numero = form.numero.data
         user.status = form.status.data
-        user.reg_date = form.reg_date.data
+
 
         try:
 
             db.session.commit()
-            flash("User details updated successfully!", "success")
+            flash("Dados Atualizados!", "sucesso")
             return redirect(url_for("search_user"))
         except Exception as e:
             db.session.rollback()
-            flash(f"Error updating user: {e}", "danger")
+            flash(f"Erro ao atualizar os dados: {e}", "perigo")
     return render_template("user_editing.html", form=form, user=user)
 
 
@@ -177,20 +177,17 @@ def edit_user(user_id):
 
 @app.route("/delete/<int:user_id>", methods=["POST"])
 def delete_user(user_id):
-
-
+    print(f"Deleting user with ID: {user_id}")
     user = UserInfo.query.get_or_404(user_id)
-
     try:
-        db.session.delete(user_id)
-        print(f"User deleted: {user_id.name}")
+        db.session.delete(user)
+        print(f"User deleted: {user.name}")
         db.session.commit()
         flash("Usuário excluído com sucesso!", "success")
-        return redirect(url_for("simple_form",user_id = user.id))
-
+        return redirect(url_for("simple_form"))
     except Exception as e:
         db.session.rollback()
-        flash(f"Erro ao excluir o usuário: Entradas existentes!", "perigo")
+        flash(f"Erro ao excluir o usuário: Existe entradas no diaário", "Perigo")
         return redirect(url_for("diary_entries",user_id = user.id))
 
 

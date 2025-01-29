@@ -23,7 +23,6 @@ class UserInfo(db.Model):
     address = db.Column(db.String(200), nullable=False)
     bairro = db.Column(db.String(100), nullable=False)
     numero = db.Column(db.String(10), nullable=False)
-    date = db.Column(db.Date, nullable=False)
     status = db.Column(db.String(10), nullable=False)
 
 

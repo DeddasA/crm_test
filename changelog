@@ -20,3 +20,28 @@ Melhorias no Tratamento de Erros
 
 -Feedback aprimorado para operações com falha (por exemplo, usuário não encontrado ou erros no banco de dados).
 Mensagens claras e amigáveis são exibidas na interface usando flash.
+
+Changelog - CRM 1.9 Alpha
+
+-Novos Recursos:
+Formatação de Data Customizada
+A data nas entradas do diário agora é exibida no formato DD/MM/YYYY em vez de YYYY-MM-DD.
+Campo de data no formulário agora força a entrada no formato DD/MM/YYYY usando validação via JavaScript.
+
+-Correção de Erro de Atualização de Data:
+Corrigido erro ao tentar atualizar a data diretamente com formato inválido.
+Agora, as datas são corretamente convertidas de DD/MM/YYYY para o formato datetime.date antes de serem salvas no banco de dados.
+
+-Validação de Formulário de Entrada:
+Melhorias na validação para garantir que campos obrigatórios, como o texto da entrada do diário, não sejam deixados vazios ao atualizar.
+
+-Melhorias de UX/UI:
+
+-Interface de Atualização de Entradas:
+Formulário de atualização de entradas de diário agora exibe a data formatada corretamente ao ser carregado.
+Adicionado campo de entrada de data com máscara que força o formato DD/MM/YYYY.
+
+-Segurança:
+
+Confirmação de Exclusão:
+Adicionada confirmação de exclusão de entrada para evitar exclusões acidentais.

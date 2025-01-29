@@ -36,10 +36,7 @@
 
 
         <p>
-            <div>
-                {{ form.reg_date.label }}<br>
-                {{ form.reg_date() }}
-            </div>
+
         </p>
 
         <p>
@@ -69,7 +66,6 @@
 
     <form method="POST" action="{{url_for ('delete_user',
           user_id= user.id)}}" style="display: inline;">
-
 
             <button type="submit"
                     onclick="return confirm('Tem Certeza que quer remover este usuário??');">
