@@ -1,0 +1,95 @@
+<style>
+
+.justified-textarea {
+    text-align: justify !important;
+    padding-right: 100px !important;  /* Optional padding */
+    width: 100% !important;  /* Ensure it spans the full width */
+    box-sizing: border-box !important; /* Prevent overflow due to padding */
+}
+    .black-border {
+        border: 2px solid black;
+        border-radius: 5px;
+        padding: 10px;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        width: 400px;
+         height : 200px;/* Ensures the textarea takes the full width of its container */
+        box-sizing: border-box; /* Prevents padding from increasing width */
+    }
+
+    .black-border:focus {
+        border-color: green; /* Changes border color on focus */
+        outline: none; /* Removes default outline */
+    }
+
+.blue-font {
+    color: blue;
+}
+
+
+   .button-container {
+        display: flex;
+        gap: 10px; /* Space between buttons */
+        align-items: center; /* Align buttons vertically if needed */
+    }
+
+    .button-container form {
+        margin: 0; /* Removes extra margin between forms */
+    }
+
+    .button-container button {
+        padding: 5px 7px;
+        font-size: 12px;
+        cursor: pointer;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f5f5f5;
+    }
+
+    .button-container button:hover {
+        background-color: #ddd; /* Adds a hover effect */
+    }
+
+
+
+
+ details summary {
+        cursor: pointer; /* Changes the cursor to a pointer when hovering */
+    }
+
+    details summary:hover {
+        text-decoration: underline; /* Optional: Adds an underline on hover */
+    }
+
+
+
+.navbar {
+    background-color: #333;
+    overflow: hidden;
+}
+
+.navbar a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+}
+
+.navbar a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.content {
+    padding: 20px;
+}
+
+
+  table, th, td {
+          border: 1px solid black;
+          border-collapse: collapse;
+          padding: 8px;
+      }
+</style>

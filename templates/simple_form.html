@@ -1,60 +1,86 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simple Form</title>
+    <!-- Link to the external CSS file -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <h1>Cadastro de Informações</h1>
-    <form method="POST">
-        {{ form.hidden_tag() }}
-        <p>
-            {{ form.name.label }}<br>
-            {{ form.name(size=40) }}
-        </p>
-        <p>
-            {{ form.email.label }}<br>
-            {{ form.email(size=40) }}
-        </p>
-        <p>
-            {{ form.phone.label }}<br>
-            {{ form.phone(size=40) }}
-        </p>
-        <p>
-            {{ form.state.label }}<br>
-            {{ form.state(size=40) }}
-        </p>
-        <p>
-            {{ form.city.label }}<br>
-            {{ form.city(size=40) }}
-        </p>
-        <p>
-            {{ form.address.label }}<br>
-            {{ form.address(size=40) }}
-        </p>
-        <p>
-            {{ form.bairro.label }}<br>
-            {{ form.bairro(size=40) }}
-        </p>
-        <p>
-            {{ form.numero.label }}<br>
-            {{ form.numero(size=20) }}
-        </p>
-        <p>
-            {{ form.submit }}
-        </p>
-    </form>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <a href="/">Home</a>
+        <a href="/search">Pesquisa de usuário</a>
+        <a href="/dashboard">Dashboard</a>
+        <a href="users_spreadsheet"> Lista de usuários</a>
+    </div>
 
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            <ul>
-                {% for category, message in messages %}
-                    <li><strong>{{ category }}</strong>: {{ message }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-    {% endwith %}
-<a href="/dashboard/">teste</a>
+    <!-- Main Content -->
+    <div class="content">
+        <h1>Cadastro de Informações</h1>
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            {{ form.csrf_token }}
+            <p>
+                {{ form.name.label }}<br>
+                {{ form.name(size=40) }}
+            </p>
+            <p>
+                {{ form.email.label }}<br>
+                {{ form.email(size=40) }}
+            </p>
+            <p>
+                {{ form.phone.label }}<br>
+                {{ form.phone(size=40) }}
+            </p>
+            <p>
+                {{ form.state.label }}<br>
+                {{ form.state(size=40) }}
+            </p>
+            <p>
+                {{ form.city.label }}<br>
+                {{ form.city(size=40) }}
+            </p>
+            <p>
+                {{ form.address.label }}<br>
+                {{ form.address(size=40) }}
+            </p>
+            <p>
+                {{ form.bairro.label }}<br>
+                {{ form.bairro(size=40) }}
+            </p>
+            <p>
+                {{ form.numero.label }}<br>
+                {{ form.numero(size=20) }}
+            </p>
+            <p>
+
+            <div>
+                {{ form.status.label }}<br>
+                {{ form.status() }}<br>  <!-- This will render the dropdown -->
+            </div>
+
+
+
+        <div class="button-container">
+
+
+            <p>
+                 <button type="submit" class="button-container">{{ form.submit.label }}</button>
+            </p>
+        </div>
+        </form>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul>
+                    {% for category, message in messages %}
+                        <li><strong>{{ category }}</strong>: {{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+    </div>
 </body>
 </html>
