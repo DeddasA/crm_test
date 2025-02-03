@@ -6,6 +6,7 @@ from data_base import UserInfo,DiaryEntry, db
 from datetime import datetime
 # from dash_main import create_dash_app
 from sqlalchemy.exc import IntegrityError
+import pandas as pd
 
 
 app = Flask(__name__)
@@ -202,7 +203,7 @@ def diary_entries(user_id):
 
         text = request.form.get("text")
 
-        if not text:
+        if not date or not text:
             flash("Both date and text fields are required.", "danger")
 
             return redirect(url_for("diary_entries", user_id=user_id))
@@ -305,7 +306,38 @@ def update_diary_entry(entry_id):
 
     return redirect(url_for("diary_entries", user_id=user_id))
 
+#____________________user display_______________________________________________________
+#___________________________________________________________________________
+#___________________________________________________________________________
 
+@app.route('/users_spreadsheet')
+def users_spreadsheet():
+    # Query all users from the database
+    users = UserInfo.query.all()
+
+    search = request.args.get('search', '').lower()
+
+    # Apply search filter before creating the DataFrame
+    if len(search) >= 3:
+        users = UserInfo.query.filter(UserInfo.name.ilike(f"{search}%")).all()
+    else:
+        users = UserInfo.query.all()
+
+    # Create data for the DataFrame based on the (filtered) users
+    data = [{'id': user.id, 'username': user.name, 'email': user.email} for user in users]
+    df = pd.DataFrame(data)
+
+    # If there is data, modify the email column to include a hyperlink to the edit page.
+    if not df.empty:
+        df['email'] = df.apply(
+            lambda row: f'<a href="/edit/{row["id"]}">{row["email"]}</a>', axis=1
+        )
+
+    # Convert the DataFrame to an HTML table.
+    table_html = df.to_html(escape=False, index=False)
+
+    return render_template('display_users.html',
+                           table=table_html, search=search)
 
 if __name__ == "__main__":
     with app.app_context():  # Open application context

@@ -4,10 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2750c60e-cc00-4c63-9428-6f45f06d9fd2" name="Changes" comment="V_2.0_alpha">
+    <list default="true" id="2750c60e-cc00-4c63-9428-6f45f06d9fd2" name="Changes" comment="V_2.1_alpha">
+      <change afterPath="$PROJECT_DIR$/templates/display_users.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/instance/data.db" beforeDir="false" afterPath="$PROJECT_DIR$/instance/data.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/simple_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/simple_form.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,26 +59,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "DefaultHtmlFileTemplate": "HTML File",
-    "Python.app.executor": "Run",
-    "Python.dash.executor": "Run",
-    "Python.dash_main.executor": "Run",
-    "Python.data_base.executor": "Run",
-    "Python.db.executor": "Run",
-    "Python.pandas_editing.executor": "Run",
-    "Python.spacy_test.executor": "Run",
-    "Python.test.executor": "Run",
-    "Python.test_flask.executor": "Run",
-    "Python.test_routes.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "2.0.1-Alpha",
-    "settings.editor.selected.configurable": "inlay.hints"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;Python.app.executor&quot;: &quot;Run&quot;,
+    &quot;Python.dash.executor&quot;: &quot;Run&quot;,
+    &quot;Python.dash_main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.data_base.executor&quot;: &quot;Run&quot;,
+    &quot;Python.db.executor&quot;: &quot;Run&quot;,
+    &quot;Python.pandas_editing.executor&quot;: &quot;Run&quot;,
+    &quot;Python.spacy_test.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test_flask.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test_routes.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;#6 on 2.0.1-Alpha&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;inlay.hints&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\rafae\PycharmProjects\crm_test\static" />
@@ -243,7 +246,15 @@
       <option name="project" value="LOCAL" />
       <updated>1738187672307</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="V_2.1_alpha">
+      <option name="closed" value="true" />
+      <created>1738188632570</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1738188632570</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -275,6 +286,7 @@
     <MESSAGE value="V_1.8_alpha" />
     <MESSAGE value="V_1.9_alpha" />
     <MESSAGE value="V_2.0_alpha" />
-    <option name="LAST_COMMIT_MESSAGE" value="V_2.0_alpha" />
+    <MESSAGE value="V_2.1_alpha" />
+    <option name="LAST_COMMIT_MESSAGE" value="V_2.1_alpha" />
   </component>
 </project>
