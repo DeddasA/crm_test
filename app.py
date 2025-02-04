@@ -32,7 +32,8 @@ class SimpleForm(FlaskForm):
     address = StringField("Endereço")
     bairro = StringField("Bairro")
     numero = StringField("numero")
-    status = SelectField("Status", choices=[(""),("Iniciado"), ('Conluído'), ('Em andamento'),
+    status = SelectField("Status", choices=[(""),("1° contado"),
+                                            ('Retorno'), ('Em andamento'),
                                            ('Pendente'), ("Nã iniciado")],
                         validators=[DataRequired()])
 
@@ -204,7 +205,8 @@ def diary_entries(user_id):
         text = request.form.get("text")
 
         if not date or not text:
-            flash("Both date and text fields are required.", "danger")
+            flash("Ambos os campos de data e texto devem ser preenchidos\n"
+                  "para  adicionar entradas.", "Aviso")
 
             return redirect(url_for("diary_entries", user_id=user_id))
 
@@ -338,6 +340,9 @@ def users_spreadsheet():
 
     return render_template('display_users.html',
                            table=table_html, search=search)
+
+
+
 
 if __name__ == "__main__":
     with app.app_context():  # Open application context

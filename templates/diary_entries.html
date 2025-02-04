@@ -17,23 +17,23 @@
    <div class="navbar">
         <a href="/">Home</a>
         <a href="/search">Pesquisa de usuário</a>
-        <a href="/dashboard">Dashboard</a>
+<!--        <a href="/dashboard">Dashboard</a>-->
     </div>
     <h1>Entradas de - {{ user.name }}</h1>
 
     <!-- Add New Diary Entry -->
     <form method="POST" action="{{ url_for('diary_entries',
     user_id=user.id) }}">
-          <div>
+          <div class="datefield">
                 {{ form.reg_date.label }}<br>
-                {{ form.reg_date() }} required
+                {{ form.reg_date() }} - Requerido para continuar
             </div>
 
 
         <br>
 
        <p> <label for="text"></label>
-        <textarea class="justified-textarea"  id="text" name="text"
+        <textarea class="black-border"  id="text" name="text"
                   rows="10" cols="50" required></textarea>
         <br>
 

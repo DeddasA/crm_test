@@ -15,24 +15,32 @@
         <a href="/dashboard">Dashboard</a>
     </div>
     <h1>Vizualiar e/ou editar clientes.</h1>
-    <form method="POST">
+    <form class=search_area" method="POST">
         {{ form.csrf_token }}
 
-        <p>{{ form.name.label }} {{ form.name(size=20) }}</p>
+        <p>{{ form.name.label }}<br>
+            {{ form.name(size=20) }}</p>
 
-        <p>{{ form.email.label }} {{ form.email(size=20) }}</p>
+        <p>{{ form.email.label }}<br>
+            {{ form.email(size=20) }}</p>
 
-        <p>{{ form.phone.label }} {{ form.phone(size=20) }}</p>
+        <p>{{ form.phone.label }}<br>
+            {{ form.phone(size=20) }}</p>
 
-        <p>{{ form.state.label }} {{ form.state(size=20) }}</p>
+        <p>{{ form.state.label }}<br>
+            {{ form.state(size=20) }}</p>
 
-        <p>{{ form.city.label }} {{ form.city(size=20) }}</p>
+        <p>{{ form.city.label }}<br>
+            {{ form.city(size=20) }}</p>
 
-        <p>{{ form.address.label }} {{ form.address(size=20) }}</p>
+        <p>{{ form.address.label }}<br>
+            {{ form.address(size=20) }}</p>
 
-        <p>{{ form.bairro.label }} {{ form.bairro(size=20) }}</p>
+        <p>{{ form.bairro.label }}<br>
+            {{ form.bairro(size=20) }}</p>
 
-        <p>{{ form.numero.label }} {{ form.numero(size=20) }}</p>
+        <p>{{ form.numero.label }} <br>
+            {{ form.numero(size=20) }}</p>
 
 
         <p>

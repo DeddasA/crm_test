@@ -12,14 +12,15 @@
     <div class="navbar">
         <a href="/">Home</a>
         <a href="/search">Pesquisa de usuário</a>
-        <a href="/dashboard">Dashboard</a>
+<!--        <a href="/dashboard">Dashboard</a>-->
         <a href="users_spreadsheet"> Lista de usuários</a>
     </div>
 
     <!-- Main Content -->
     <div class="content">
         <h1>Cadastro de Informações</h1>
-        <form method="POST">
+
+        <form class=search_area" method="POST">
             {{ form.hidden_tag() }}
             {{ form.csrf_token }}
             <p>
