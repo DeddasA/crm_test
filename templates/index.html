@@ -3,29 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Client Form</title>
+    <title>Flask and Dash Example</title>
 </head>
 <body>
-    <h1>Submit Client Details</h1>
-
-    <!-- Flash messages for success or error -->
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            <ul>
-                {% for category, message in messages %}
-                    <li style="color: green;">{{ message }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-    {% endwith %}
-
-    <!-- Form to capture client data -->
-    <form method="POST">
-        {{ form.hidden_tag() }}
-        <p>{{ form.name.label }}: {{ form.name() }}</p>
-        <p>{{ form.email.label }}: {{ form.email() }}</p>
-        <p>{{ form.phone.label }}: {{ form.phone() }}</p>
-        <p>{{ form.submit() }}</p>
-    </form>
+    <h1>Welcome to Flask</h1>
+    <a href="/dashboard/">Go to Dashboard</a>
 </body>
 </html>

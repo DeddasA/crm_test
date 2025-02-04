@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Search User</title>
+     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+ <div class="navbar">
+        <a href="/">Home</a>
+        <a href="/search">Pesquisa de usuário</a>
+
+    </div>
+    <h1>Search for a User</h1>
+
+    <form method="POST">
+        <div class="button-container">
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email" required>
+
+
+
+        <button type="submit">Search</button>
+           </div>
+    </form>
+    {% with messages = get_flashed_messages(with_categories=True) %}
+    {% if messages %}
+
+        <ul>
+            {% for category, message in messages %}
+            <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    {% endwith %}
+<br>
+
+        <div class="button-container">
+
+<form   action ="{{url_for('simple_form')}}" method="get">
+            <button TYPE="submit"> Voltra á página inicial</button>
+</form>
+        </div>
+
+</body>
+</html>

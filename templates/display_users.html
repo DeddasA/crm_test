@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Lista de usuários</title>
+
+</head>
+<body>
+
+   <div class="navbar">
+        <a href="/">Home</a>
+        <a href="/search">Pesquisa de usuário</a>
+    </div>
+
+
+
+ <div class="button-container">
+  <form method="get" action="/users_spreadsheet">
+<br>
+        <label for="search">Pesquisa de usuários(
+        Pelo menos 3 letras):</label>
+
+
+        <input class="search_area" type="text" id="search"
+               name="search" value="{{ search }}">
+
+        <button type="submit">Search</button>
+         </div>
+
+    </form>
+   <br>
+<div class="email">
+{{ table | safe }}
+</div>
+
+
+
+</body>
+</html>

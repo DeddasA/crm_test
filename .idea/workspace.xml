@@ -4,21 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2750c60e-cc00-4c63-9428-6f45f06d9fd2" name="Changes" comment="V_04">
-      <change afterPath="$PROJECT_DIR$/csvs/2025-01-16/output_file.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dash_main.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data_base.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data_base/33_RJ.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data_base/municipios.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/output_file.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pandas_editing.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/simple_form.html" afterDir="false" />
+    <list default="true" id="2750c60e-cc00-4c63-9428-6f45f06d9fd2" name="Changes" comment="V_0.3_alpha">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/instance/clients.db" beforeDir="false" afterPath="$PROJECT_DIR$/instance/data.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/home.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/instance/data.db" beforeDir="false" afterPath="$PROJECT_DIR$/instance/data.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/diary_entries.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/diary_entries.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/display_users.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/display_users.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/search.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/search.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/simple_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/simple_form.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/user_editing.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/user_editing.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,11 +31,23 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="0.3" />
+        <entry key="$PROJECT_DIR$" value="2.0.2-Alpha" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;DeddasA&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/DeddasA/crm_test.git&quot;,
+    &quot;accountId&quot;: &quot;1a8f9c60-845a-4c81-8917-ea7aa57cd5bf&quot;
+  }
+}</component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
@@ -67,14 +74,18 @@
     "Python.pandas_editing.executor": "Run",
     "Python.spacy_test.executor": "Run",
     "Python.test.executor": "Run",
+    "Python.test_flask.executor": "Run",
+    "Python.test_routes.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "0.4",
+    "git-widget-placeholder": "2.0.3-Alpha",
     "settings.editor.selected.configurable": "inlay.hints"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\rafae\PycharmProjects\crm_test\static" />
+      <recent name="C:\Users\rafae\PycharmProjects\crm_test\static\css" />
       <recent name="C:\Users\hadouken\PycharmProjects\crm_test" />
     </key>
   </component>
@@ -118,14 +129,176 @@
       <option name="project" value="LOCAL" />
       <updated>1736966219386</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="V_05">
+      <option name="closed" value="true" />
+      <created>1737053656582</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1737053656587</updated>
+    </task>
+    <task id="LOCAL-00005" summary="V_05">
+      <option name="closed" value="true" />
+      <created>1737053762518</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1737053762518</updated>
+    </task>
+    <task id="LOCAL-00006" summary="V_07_aplha">
+      <option name="closed" value="true" />
+      <created>1737053958240</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1737053958240</updated>
+    </task>
+    <task id="LOCAL-00007" summary="V_08_aplha">
+      <option name="closed" value="true" />
+      <created>1737054062834</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1737054062834</updated>
+    </task>
+    <task id="LOCAL-00008" summary="V_09_alpha">
+      <option name="closed" value="true" />
+      <created>1737057914057</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1737057914057</updated>
+    </task>
+    <task id="LOCAL-00009" summary="V1.0_alpha">
+      <option name="closed" value="true" />
+      <created>1737481390987</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1737481390987</updated>
+    </task>
+    <task id="LOCAL-00010" summary="V1.2_alpha">
+      <option name="closed" value="true" />
+      <created>1737572492154</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1737572492154</updated>
+    </task>
+    <task id="LOCAL-00011" summary="V1.4_alpha">
+      <option name="closed" value="true" />
+      <created>1737578371522</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1737578371522</updated>
+    </task>
+    <task id="LOCAL-00012" summary="V_1.5_alpha">
+      <option name="closed" value="true" />
+      <created>1737680328475</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1737680328475</updated>
+    </task>
+    <task id="LOCAL-00013" summary="V_1.6_alpha">
+      <option name="closed" value="true" />
+      <created>1737938634748</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1737938634748</updated>
+    </task>
+    <task id="LOCAL-00014" summary="V_1.7_alpha">
+      <option name="closed" value="true" />
+      <created>1738013155766</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1738013155766</updated>
+    </task>
+    <task id="LOCAL-00015" summary="V_1.7_alpha">
+      <option name="closed" value="true" />
+      <created>1738015033689</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1738015033689</updated>
+    </task>
+    <task id="LOCAL-00016" summary="V_1.8_alpha">
+      <option name="closed" value="true" />
+      <created>1738175082669</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1738175082669</updated>
+    </task>
+    <task id="LOCAL-00017" summary="V_1.9_alpha">
+      <option name="closed" value="true" />
+      <created>1738183969034</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1738183969034</updated>
+    </task>
+    <task id="LOCAL-00018" summary="V_2.0_alpha">
+      <option name="closed" value="true" />
+      <created>1738187672307</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1738187672307</updated>
+    </task>
+    <task id="LOCAL-00019" summary="V_2.1_alpha">
+      <option name="closed" value="true" />
+      <created>1738188632570</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1738188632570</updated>
+    </task>
+    <task id="LOCAL-00020" summary="V_0.2_alpha">
+      <option name="closed" value="true" />
+      <created>1738607629946</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1738607629946</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="V_01" />
     <MESSAGE value="V_02" />
     <MESSAGE value="V_04" />
-    <option name="LAST_COMMIT_MESSAGE" value="V_04" />
+    <MESSAGE value="V_05" />
+    <MESSAGE value="V_07_aplha" />
+    <MESSAGE value="V_08_aplha" />
+    <MESSAGE value="V_09_alpha" />
+    <MESSAGE value="V1.0_alpha" />
+    <MESSAGE value="V1.2_alpha" />
+    <MESSAGE value="V1.4_alpha" />
+    <MESSAGE value="V_1.5_alpha" />
+    <MESSAGE value="V_1.6_alpha" />
+    <MESSAGE value="V_1.7_alpha" />
+    <MESSAGE value="V_1.8_alpha" />
+    <MESSAGE value="V_1.9_alpha" />
+    <MESSAGE value="V_2.0_alpha" />
+    <MESSAGE value="V_2.1_alpha" />
+    <MESSAGE value="V_0.2_alpha" />
+    <option name="LAST_COMMIT_MESSAGE" value="V_0.2_alpha" />
   </component>
 </project>
