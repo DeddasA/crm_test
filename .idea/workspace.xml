@@ -5,15 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2750c60e-cc00-4c63-9428-6f45f06d9fd2" name="Changes" comment="V_0.3_alpha">
+      <change afterPath="$PROJECT_DIR$/instance/learnconnect.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/instance/data.db" beforeDir="false" afterPath="$PROJECT_DIR$/instance/data.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/diary_entries.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/diary_entries.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/display_users.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/display_users.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/search.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/search.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/simple_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/simple_form.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/user_editing.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/user_editing.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_base.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_base.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/instance/data.db" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/diary_entries.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/display_users.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/car_dashboard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/edit_car.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/search.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/register_car.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/simple_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/repair_log.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,15 +24,15 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="HTML File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="2.0.2-Alpha" />
+        <entry key="$PROJECT_DIR$" value="2.0.5-Alpha_working" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -78,7 +79,7 @@
     "Python.test_routes.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "2.0.3-Alpha",
+    "git-widget-placeholder": "0.0.1-course__reg",
     "settings.editor.selected.configurable": "inlay.hints"
   }
 }]]></component>
