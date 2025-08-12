@@ -10,17 +10,25 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark"> <div class="container-fluid">
-            <a class="navbar-brand" href="{{ url_for('car_dashboard') }}">Learn Conect</a>
+            <a class="navbar-brand" href="{{ url_for('register_partner') }}">Learn Conect</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('register_car') }}">Registrar cliente</a>
+                        <a class="nav-link" href="{{ url_for('register_partner') }}">Registrar parceiro</a>
+                    </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('register_client') }}">Registrar cliente</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('car_dashboard') }}">Painel de Clientes</a>
+                        <a class="nav-link"
+                           href="{{ url_for('partners_dash') }}">Painel de Parceiros</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="{{ url_for('clients_dash') }}">Painel de Parceiros</a>
                     </li>
                 </ul>
             </div>

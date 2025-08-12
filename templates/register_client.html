@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}Registrar Novo Cliente{% endblock %}
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h2>Registrar Novo cliente</h2>
+    </div>
+    <div class="card-body">
+        <form method="POST" action="{{ url_for('register_client') }}">
+            {{ form.hidden_tag() }}
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    {{ form.client_name.label(class="form-label") }}
+                    {{ form.client_name(class="form-control") }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    {{ form.client_phone.label(class="form-label") }}
+                    {{ form.client_phone(class="form-control") }}
+                </div>
+            </div>
+
+                <div class="col-md-3 mb-3">
+                    {{ form.cnpj_client.label(class="form-label") }}
+                    {{ form.cnpj_client(class="form-control",
+                    style="text-transform:uppercase") }}
+                </div>
+                <div class="col-md-3 mb-3">
+                    {{ form.year.label(class="form-label") }}
+                    {{ form.year(class="form-control") }}
+                </div>
+            </div>
+            <div class="mb-3">
+                {{ form.status.label(class="form-label") }}
+                {{ form.status(class="form-select") }}
+            </div>
+            {{ form.submit(class="btn btn-primary w-1000") }}
+        </form>
+    </div>
+</div>
+{% endblock %}

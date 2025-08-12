@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title %}Painel de Parceiros{% endblock %}
+{% block content %}
+
+
+<style>
+    /* This centers the text for both headers (th) and data cells (td) within the table */
+    .table th, .table td {
+        text-align: center;
+
+
+    }
+
+      /* Adds word wrapping to the table cells to prevent overflow */
+    .table {
+        table-layout: fixed; /* This is essential for word-wrap to work correctly */
+        width: 100%; /* Ensures the table uses the full width of its container */
+    }
+
+    .table td {
+        word-wrap: break-word;   /* Older browsers */
+        overflow-wrap: break-word; /* Modern browsers */
+    }
+</style>
+
+
+<div class="card">
+    <div class="card-header">
+        <h2>Painel de Parceiros Registrados</h2>
+    </div>
+    <div class="card-body">
+        <form method="GET" action="{{ url_for('partners_dash') }}" class="mb-4">
+            <div class="input-group">
+                <input type="text" name="search" class="form-control" placeholder="Buscar por nome do cliente ou cnpj..." value="{{ search }}">
+                <button type="submit" class="btn btn-outline-secondary">Buscar</button>
+            </div>
+        </form>
+
+        {% if table %}
+            {{ table|safe }}
+        {% else %}
+            <p class="text-center">Nenhum parceiro encontrado...</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

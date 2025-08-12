@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
-{% block title %}Registrar Novo Carro{% endblock %}
+{% block title %}Registrar Novo parceiro{% endblock %}
 {% block content %}
 <div class="card">
     <div class="card-header">
         <h2>Registrar Novo Parceiro</h2>
     </div>
     <div class="card-body">
-        <form method="POST" action="{{ url_for('register_car') }}">
+        <form method="POST" action="{{ url_for('register_partner') }}">
             {{ form.hidden_tag() }}
             <div class="row">
                 <div class="col-md-6 mb-3">
@@ -41,7 +41,7 @@
                 {{ form.status.label(class="form-label") }}
                 {{ form.status(class="form-select") }}
             </div>
-            {{ form.submit(class="btn btn-primary w-100") }}
+            {{ form.submit(class="btn btn-primary w-1000") }}
         </form>
     </div>
 </div>
