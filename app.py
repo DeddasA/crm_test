@@ -23,33 +23,30 @@ db.init_app(app)
 # ____________________________________________________________________
 # ____________________________________________________________________
 class parter_reg(FlaskForm):
-    owner_name = StringField("Nome do parceiro", validators=[DataRequired()])
-    owner_phone = StringField("Telefone")
-    car_model = StringField("Modelo de cursos oferecidos", validators=[DataRequired(),
-          ])
-    license_plate = StringField("CNPJ", validators=[DataRequired(), Length(min=14, max=14)])
-    year = IntegerField("Ano", validators=[Optional()])
-    problem_description = TextAreaField("Soluções propostas")
+    nome_do_parceiro = StringField('Nome do Parceiro', validators=[DataRequired()])
+    telefone_do_parceiro = StringField('Telefone do Parceiro', validators=[DataRequired()])
+    modelo_cursos = StringField('Modelo de Cursos', validators=[DataRequired()])
+    cnpj_parceiro = StringField('CNPJ do Parceiro', validators=[DataRequired(),Length(min=14, max=14)])
+    year = IntegerField('Ano', validators=[Optional()])
+    descrição_da_proposta = StringField('Descrição da proposta', validators=[DataRequired()])
     status = SelectField("Status",
                          choices=[('primeiro contato'), ('Em contato'),
                                   ('Aguardando contato'), ('Concluído'), ('Pendências')],
                          validators=[DataRequired()])
+
     submit = SubmitField("Registrar Parceiro")
 
 class partner_edit(FlaskForm):
-    owner_name = StringField("Nome do cliante", validators=[DataRequired()])
-    owner_phone = StringField("Telefone")
-    car_model = StringField("Modelo de cursos oferecidos", validators=[DataRequired()])
-    license_plate = StringField("cnpj", validators=[DataRequired(), Length(min=7, max=8)])
-    year = IntegerField("Ano", validators=[Optional()])
-    problem_description = TextAreaField("Descrição do curso")
+    nome_do_parceiro = StringField('Nome do Parceiro', validators=[DataRequired()])
+    telefone_do_parceiro = StringField('Telefone do Parceiro', validators=[DataRequired()])
+    modelo_cursos = StringField('Modelo de Cursos', validators=[DataRequired()])
+    cnpj_parceiro = StringField('CNPJ do Parceiro', validators=[DataRequired(),Length(min=14, max=14)])
+    year = IntegerField('Ano', validators=[Optional()])
+    descrição_da_proposta = TextAreaField('Descrição da proposta', validators=[DataRequired()])
     status = SelectField("Status",
                          choices=[('primeiro contato'), ('Em contato'),
                                   ('Aguardando contato'), ('Concluído'), ('Pendências')],
                          validators=[DataRequired()])
-    # Fields for adding a new repair log entry
-    log_date = DateField('Data do contato', validators=[Optional()])
-    log_text = TextAreaField('Descrição de proposta', validators=[Optional()])
     submit = SubmitField("Salvar Alterações")
 
 
@@ -62,7 +59,7 @@ class client_reg(FlaskForm):
     client_name = StringField("Nome do cliente", validators=[DataRequired()])
     client_phone = StringField("Telefone")
 
-    cnpj_client = StringField("CNPJ", validators=[DataRequired(), Length(min=7, max=8)])
+    cnpj_client = StringField("CNPJ", validators=[DataRequired(), Length(min=14, max=14)])
     year = IntegerField("Ano", validators=[Optional()])
     needs_description = TextAreaField("Necessidades")
     status = SelectField("Status",
@@ -76,7 +73,7 @@ class client_edit(FlaskForm):
     client_name = StringField("Nome do cliente", validators=[DataRequired()])
     client_phone = StringField("Telefone")
 
-    cnpj_client = StringField("CNPJ", validators=[DataRequired(), Length(min=7, max=8)])
+    cnpj_client = StringField("CNPJ", validators=[DataRequired(), Length(min=14, max=14)])
     year = IntegerField("Ano", validators=[Optional()])
     needs_description = TextAreaField("Necessidades")
     status = SelectField("Status",
@@ -109,12 +106,12 @@ def register_partner():
 
     if form.validate_on_submit():
         new_partner = partners(
-            nome_do_parceiro=form.owner_name.data,
-            telefone_do_parceiro=form.owner_phone.data,
-            modelo_cursos=form.car_model.data,
-            cnpj_parceiro=form.license_plate.data.upper(),
+            nome_do_parceiro=form.nome_do_parceiro.data,
+            telefone_do_parceiro=form.telefone_do_parceiro.data,
+            modelo_cursos=form.modelo_cursos.data,
+            cnpj_parceiro=form.cnpj_parceiro.data.upper(),
             year=form.year.data,
-            descrição_curso=form.problem_description.data,
+            descrição_da_proposta=form.descrição_da_proposta.data,
             status=form.status.data
         )
         print("Form errors:", form.errors)
@@ -203,10 +200,12 @@ def partners_dash():
         partners_data = partners.query.order_by(partners.registration_date.desc()).all()
 
 
+
+
     data = [{
         'id': partner.id,
         'Nome': partner.nome_do_parceiro,
-        'Descrição dos serviços': partner.descrição_curso,
+        'Descrição dos serviços': partner.descrição_da_proposta,
         'Cnpj': partner.cnpj_parceiro,
         'Status':partner.status
 
@@ -280,31 +279,36 @@ def edit_partner(partner_id):
 
     form = partner_edit(obj=partners_data)
 
-
     if form.validate_on_submit():
-        partners_data.nome_do_parceiro = form.owner_name.data,
-        partners_data.telefone_do_parceiro = form.owner_phone.data,
-        partners_data.modelo_cursos = form.car_model.data,
-        partners_data.cnpj_parceiro = form.license_plate.data.upper(),
-        partners_data.year = form.year.data,
-        partners_data.descrição_curso = form.problem_description.data,
-        partners_data.status = form.status.data
+        form.populate_obj(partners_data)
+
+
+        print(f"DEBUG: Data to be saved: "
+              f"Name: {partners_data.nome_do_parceiro}, "
+              f"CNPJ: {partners_data.cnpj_parceiro}, "
+              f"Status: {partners_data.status}")
 
 
         try:
             db.session.commit()
             flash("Dados do parceiro atualizados com sucesso!", "success")
-            return redirect(url_for('client_dash'))
+            return redirect(url_for('partners_dash'))
         except IntegrityError:
             db.session.rollback()
-            flash(f"Erro: A placa '{partners_data.cnpj_parceiro}' "
+            flash(f"Erro: O Cnpj - '{partners_data.cnpj_parceiro}' "
                   f"já pertence a outro registro.", "danger")
         except Exception as e:
             db.session.rollback()
             flash(f"Erro ao atualizar os dados: {e}", "danger")
+    else:
+        print("Form validation failed. Errors:", form.errors)
+
 
     return render_template("edit_partner.html", form=form,
                            partner=partners_data)
+
+
+
 
 
 # Route to delete a car

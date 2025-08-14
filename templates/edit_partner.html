@@ -14,7 +14,7 @@
     <div class="card-body">
 
         <div class="mb-3">
-            <h5>Tipo de Serviço Solicitado:
+            <h5>Status:
                 <span class="badge bg-secondary">{{ partner.status }}</span></h5>
         </div>
 
@@ -22,25 +22,43 @@
        partner_id=partner.id) }}">
             {{ form.hidden_tag() }}
             <div class="row">
+
                 <div class="col-md-6 mb-3">
-                    {{ form.owner_name.label(class="form-label") }}
-                    {{ form.owner_name(class="form-control") }}
+                   {{ form.nome_do_parceiro.label(class="form-control-label") }}
+            {{ form.nome_do_parceiro(class="form-control") }}
+
                 </div>
+
                  <div class="col-md-6 mb-3">
-                    {{ form.car_model.label(class="form-label") }}
-                    {{ form.car_model(class="form-control") }}
+                    {{ form.cnpj_parceiro.label(class="form-label") }}
+                    {{ form.cnpj_parceiro(class="form-control") }}
                 </div>
-                </div>
+
+     <div class="mb-3">
+                {{ form.descrição_da_proposta.label(class="form-label") }}
+                {{ form.descrição_da_proposta(class="form-control") }}
+            </div>
+
+            <div class="mb-3">
+                {{ form.  modelo_cursos.label(class="form-label") }}
+                {{ form.  modelo_cursos(class="form-control") }}
+            </div>
+
+
             <div class="mb-3">
                 {{ form.status.label(class="form-label") }}
-                {{ form.status(class="form-select") }}
+                {{ form.status(class="form-control") }}
             </div>
+
             <div class="d-flex justify-content-between">
                 {{ form.submit(class="btn btn-primary") }}
-                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                <button type="button" class="btn btn-danger"
+                        data-bs-toggle="modal"
+                        data-bs-target="#deleteModal">
                     Excluir Registro
                 </button>
             </div>
+                </div>
         </form>
     </div>
 </div>

@@ -10,22 +10,22 @@
             {{ form.hidden_tag() }}
             <div class="row">
                 <div class="col-md-6 mb-3">
-                    {{ form.owner_name.label(class="form-label") }}
-                    {{ form.owner_name(class="form-control") }}
+                    {{ form.nome_do_parceiro.label(class="form-label") }}
+                    {{ form.nome_do_parceiro(class="form-control") }}
                 </div>
                 <div class="col-md-6 mb-3">
-                    {{ form.owner_phone.label(class="form-label") }}
-                    {{ form.owner_phone(class="form-control") }}
+                    {{ form.telefone_do_parceiro.label(class="form-label") }}
+                    {{ form.telefone_do_parceiro(class="form-control") }}
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6 mb-3">
-                    {{ form.car_model.label(class="form-label") }}
-                    {{ form.car_model(class="form-control") }}
+                    {{ form.modelo_cursos.label(class="form-label") }}
+                    {{ form.modelo_cursos(class="form-control") }}
                 </div>
                 <div class="col-md-3 mb-3">
-                    {{ form.license_plate.label(class="form-label") }}
-                    {{ form.license_plate(class="form-control",
+                    {{ form.cnpj_parceiro.label(class="form-label") }}
+                    {{ form.cnpj_parceiro(class="form-control",
                     style="text-transform:uppercase") }}
                 </div>
                 <div class="col-md-3 mb-3">
@@ -33,9 +33,9 @@
                     {{ form.year(class="form-control") }}
                 </div>
             </div>
-            <div class="mb-3">
-                {{ form.problem_description.label(class="form-label") }}
-                {{ form.problem_description(class="form-control", rows=3) }}
+               <div class="mb-10">
+                {{ form.descrição_da_proposta.label(class="form-label") }}
+                {{ form.descrição_da_proposta(class="form-control", rows=3) }}
             </div>
             <div class="mb-3">
                 {{ form.status.label(class="form-label") }}

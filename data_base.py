@@ -32,7 +32,7 @@ class partners(db.Model):
     modelo_cursos = db.Column(db.String(50), nullable=False)
     cnpj_parceiro = db.Column(db.String(14), unique=True, nullable=False)
     year = db.Column(db.Integer, nullable=True)
-    descrição_curso = db.Column(db.Text, nullable=True)
+    descrição_da_proposta = db.Column(db.Text, nullable=True)
     status = db.Column(db.String(50), nullable=False, default='Aguardando Avaliação')  # Status interno da oficina
     registration_date = db.Column(db.Date, default=datetime.utcnow)
 
