@@ -10,18 +10,18 @@
             {{ form.hidden_tag() }}
             <div class="row">
                 <div class="col-md-6 mb-3">
-                    {{ form.client_name.label(class="form-label") }}
-                    {{ form.client_name(class="form-control") }}
+                    {{ form.nome_do_cliente.label(class="form-label") }}
+                    {{ form.nome_do_cliente(class="form-control") }}
                 </div>
                 <div class="col-md-6 mb-3">
-                    {{ form.client_phone.label(class="form-label") }}
-                    {{ form.client_phone(class="form-control") }}
+                    {{ form.telefone_do_cliente.label(class="form-label") }}
+                    {{ form.telefone_do_cliente(class="form-control") }}
                 </div>
             </div>
 
                 <div class="col-md-3 mb-3">
-                    {{ form.cnpj_client.label(class="form-label") }}
-                    {{ form.cnpj_client(class="form-control",
+                    {{ form.cnpj_cliente.label(class="form-label") }}
+                    {{ form.cnpj_cliente(class="form-control",
                     style="text-transform:uppercase") }}
                 </div>
                 <div class="col-md-3 mb-3">

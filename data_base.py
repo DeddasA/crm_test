@@ -13,7 +13,6 @@ class Client(db.Model):
     nome_do_cliente = db.Column(db.String(100), nullable=False)
     year = db.Column(db.Integer, nullable=True),
     telefone_do_cliente = db.Column(db.String(20),unique = True, nullable=True)
-    cnpj_cliente = db.Column(db.String(14), unique=True, nullable=False),
     status = db.Column(db.String(50), nullable=False, default='Aguardando contato')
 
 

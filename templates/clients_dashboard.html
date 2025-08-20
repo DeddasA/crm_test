@@ -29,9 +29,10 @@
         <h2>Painel de clientes Registrados</h2>
     </div>
     <div class="card-body">
-        <form method="GET" action="{{ url_for('partners_dash') }}" class="mb-4">
+        <form method="GET" action="{{ url_for('client_dash') }}" class="mb-4">
             <div class="input-group">
-                <input type="text" name="search" class="form-control" placeholder="Buscar por nome do cliente ou cnpj..." value="{{ search }}">
+                <input type="text" name="search" class="form-control"
+                       placeholder="Buscar por nome do cliente ou cnpj..." value="{{ search }}">
                 <button type="submit" class="btn btn-outline-secondary">Buscar</button>
             </div>
         </form>
@@ -39,7 +40,7 @@
         {% if table %}
             {{ table|safe }}
         {% else %}
-            <p class="text-center">Nenhum parceiro encontrado...</p>
+            <p class="text-center">Nenhum cliente encontrado...</p>
         {% endif %}
     </div>
 </div>

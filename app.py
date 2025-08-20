@@ -56,12 +56,12 @@ class partner_edit(FlaskForm):
 
 
 class client_reg(FlaskForm):
-    client_name = StringField("Nome do cliente", validators=[DataRequired()])
-    client_phone = StringField("Telefone")
+    nome_do_cliente = StringField("Nome do cliente", validators=[DataRequired()])
+    telefone_do_cliente = StringField("Telefone")
 
-    cnpj_client = StringField("CNPJ", validators=[DataRequired(), Length(min=14, max=14)])
+    cnpj_cliente = StringField("CNPJ", validators=[DataRequired(), Length(min=14, max=14)])
     year = IntegerField("Ano", validators=[Optional()])
-    needs_description = TextAreaField("Necessidades")
+    # needs_description = TextAreaField("Necessidades")
     status = SelectField("Status",
                          choices=[('primeiro contato'), ('Em contato'),
                                   ('Aguardando contato'), ('Concluído'), ('Pendências')],
@@ -70,20 +70,19 @@ class client_reg(FlaskForm):
 
 
 class client_edit(FlaskForm):
-    client_name = StringField("Nome do cliente", validators=[DataRequired()])
-    client_phone = StringField("Telefone")
+    nome_do_cliente = StringField("Nome do cliente", validators=[DataRequired()])
+    telefone_do_cliente = StringField("Telefone")
 
-    cnpj_client = StringField("CNPJ", validators=[DataRequired(), Length(min=14, max=14)])
+    cnpj_cliente = StringField("CNPJ", validators=[DataRequired(), Length(min=14, max=14)])
     year = IntegerField("Ano", validators=[Optional()])
-    needs_description = TextAreaField("Necessidades")
+    # needs_description = TextAreaField("Necessidades")
     status = SelectField("Status",
                          choices=[('primeiro contato'), ('Em contato'),
                                   ('Aguardando contato'), ('Concluído'), ('Pendências')],
                          validators=[DataRequired()])
-
-
-    log_date = DateField('Data do contato', validators=[Optional()])
-    log_text = TextAreaField('Descrição do cliente', validators=[Optional()])
+    submit = SubmitField("Registrar cliente")
+    # log_date = DateField('Data do contato', validators=[Optional()])
+    # log_text = TextAreaField('Descrição do cliente', validators=[Optional()])
 
 
 
@@ -143,10 +142,9 @@ def register_client():
 
     if form.validate_on_submit():
         new_client = Client(
-            nome_do_cliente=form.client_name.data,
-            telefone_do_cliente=form.client_name.data,
-
-            cnpj_cliente=form.cnpj_client.data.upper(),
+            nome_do_cliente=form.nome_do_cliente.data,
+            telefone_do_cliente=form.telefone_do_cliente.data,
+            cnpj_cliente=form.cnpj_cliente.data.upper(),
             year=form.year.data,
 
             status=form.status.data
@@ -230,8 +228,8 @@ def partners_dash():
 
 
 
-@app.route('/clients_dash')
-def clients_dash():
+@app.route('/client_dash')
+def client_dash():
     search_query = request.args.get('search', '').lower()
 
     if search_query:
@@ -260,16 +258,20 @@ def clients_dash():
     if not df.empty:
         # Make the license plate a link to the edit page
         df['Cnpj'] = df.apply(
-            lambda row: f'<a href="/edit/{row["id"]}">{row["Cnpj"]}</a>', axis=1
+            lambda row: f'<a href="/edit_client/{row["id"]}">{row["Cnpj"]}</a>', axis=1
         )
         # df['Descrição dos serviços'] = df['Descrição dos serviços'].apply(truncate_words)
         df = df.drop(columns=['id'])  # Remove the ID column for display
 
-    table_html = df.to_html(classes='table table-striped table-hover text-justify', escape=False, index=False
+    table_html = df.to_html(classes='table table-striped table-hover text-justify',
+                            escape=False, index=False
                            )
     return render_template('clients_dashboard.html',
                            table=table_html, search=search_query,flash = "ass")
 
+
+ #edit partner___________________________________________________
+ #______________________________________________________________
 
 
 @app.route("/edit/<int:partner_id>", methods=["GET", "POST"])
@@ -317,16 +319,80 @@ def delete_partner(partner_id):
     partner = partners.query.get_or_404(partner_id)
 
     try:
-
         db.session.delete(partner)
         db.session.commit()
         flash("Registro do carro excluído com suceso!", "success")
-        return redirect(url_for("partner_dash"))
+        return redirect(url_for("partners_dash"))
     except Exception as e:
         db.session.rollback()
         flash(f"Erro ao excluir o registro: {e}", "danger")
         return redirect(url_for("edit_partner",partner_id=partner.id
     ))
+
+
+
+
+
+
+ #edit client___________________________________________________
+ #______________________________________________________________
+
+
+@app.route("/edit_client/<int:client_id>", methods=["GET", "POST"])
+def edit_client(client_id):
+
+    client_data = Client.query.get_or_404(client_id)
+
+    form = client_edit(obj=client_data)
+
+    print(client_data.cnpj_cliente)
+    if form.validate_on_submit():
+        form.populate_obj(client_data)
+
+        try:
+            db.session.commit()
+            flash("Dados do cliente atualizados com sucesso!", "success")
+            return redirect(url_for('client_dash'))
+        except IntegrityError:
+            db.session.rollback()
+            flash(f"Erro: O Cnpj - '{client_data.cnpj_cliente}' "
+                  f"já pertence a outro registro.", "danger")
+        except Exception as e:
+            db.session.rollback()
+            flash(f"Erro ao atualizar os dados: {e}", "danger")
+    else:
+        print("Form validation failed. Errors:", form.errors)
+
+
+    return render_template("edit_client.html", form=form,
+                           client=client_data)
+
+
+
+
+
+
+@app.route("/delete/<int:client_id>", methods=["POST"])
+def delete_client(client_id):
+    client = partners.query.get_or_404(client_id)
+
+    try:
+        db.session.delete(client)
+        db.session.commit()
+        flash("Registro do cliente excluído com suceso!", "success")
+        return redirect(url_for("partners_dash"))
+    except Exception as e:
+        db.session.rollback()
+        flash(f"Erro ao excluir o registro: {e}", "danger")
+        return redirect(url_for("edit_partner",client_idd=client.id
+    ))
+
+
+
+
+
+
+
 
 
 # # Route to manage repair log for a specific car
